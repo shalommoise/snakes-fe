@@ -1,3 +1,19 @@
 .App {
   text-align: center;
 }
+.frame {
+  border: solid;
+}
+.game {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  border: dashed thin brown;
+  width: 600px;
+  height: 100%;
+}
+.pixel {
+  width: 20px;
+  height: 20px;
+  background-color: greenyellow;
+}

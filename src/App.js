@@ -14,10 +14,10 @@ function App() {
      <Header />
 
      <Router>
-<Home path="/"/>
-<SinglePlayer path="/single-player" />
-<MultiPlayer path="/multi-player" />
-<Instructions path="/instructions" />
+<Home path="/" />
+<SinglePlayer path="/single-player"/>
+<MultiPlayer path="/multi-player"/>
+<Instructions path="/instructions"/>
      </Router>
 <br/>
 

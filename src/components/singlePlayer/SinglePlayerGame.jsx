@@ -19,7 +19,7 @@ const SinglePlayerGame = (props) => {
       {create()}
 <div className="game">
 {array.map((pixel, index)=>{
-return  <GamePixel key={index} index={index}/>
+return  <GamePixel key={index} index={index} size={size}/>
 })}
     </div>
     </div>

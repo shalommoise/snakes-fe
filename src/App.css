@@ -3,6 +3,8 @@
 }
 .frame {
   border: solid;
+  margin: auto;
+  max-width: 1000px;
 }
 .game {
   margin: auto;

@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import {  Link } from "@reach/router";
+import {/* Router,*/ Link } from "@reach/router";
+import SinglePlayerGame from "./singlePlayer/SinglePlayerGame"
 class SinglePlayer extends Component {
   state= {
-    player1: '',
+    player1: 'player1',
     player2: '',
-    snake2: ''
+    snake2: [],
+    gameOn: false
   }
-  
+  handleChange=(changeEvent)=>{
+     const {value} = changeEvent.target;
+     this.setState({player1: value})
+  }
+  start=()=>{
+this.setState({gameOn: true});
+
+  }
   render() {
    
     return (
-      <div>
+      
+      <div className="frame">
         <h2>Single-Player</h2>
-        <Link to="/">Home</Link>
+      {!this.state.gameOn ?  <div>       
+          <label htmlFor="userName"></label>
+          <input type="text" id="userName" name="userName" defaultValue="Enter your username here" onChange={this.handleChange}/>
+     <br/>
+     <button onClick={this.start}>Start</button>
+       
+      </div>
+     : <SinglePlayerGame userName={this.state.player1} size={30} />
+  }
+       <Link to="/">Home</Link>
       </div>
     );
   }

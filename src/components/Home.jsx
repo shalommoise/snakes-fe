@@ -2,7 +2,7 @@ import React from 'react';
 import {  Link } from "@reach/router";
 const Home = () => {
   return (
-    <div>
+    <div  className="frame">
       <h2>Home</h2>
 
  <Link to="/single-player">Single-Player</Link>

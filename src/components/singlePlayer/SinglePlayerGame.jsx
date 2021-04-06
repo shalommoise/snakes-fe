@@ -1,5 +1,6 @@
 import React from 'react';
 import GamePixel from "../GamePixel"
+
 const SinglePlayerGame = (props) => {
   const {userName, size} = props;
   const array = [];

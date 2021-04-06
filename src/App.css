@@ -17,5 +17,21 @@
 .pixel {
   width: 20px;
   height: 20px;
+  background-color: lightblue;
+}
+.food {
+  width: 20px;
+  height: 20px;
+  background-color: green;
+}
+.body {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+}
+
+.head {
+  width: 20px;
+  height: 20px;
   background-color: greenyellow;
 }

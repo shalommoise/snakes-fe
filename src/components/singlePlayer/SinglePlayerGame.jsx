@@ -17,11 +17,9 @@ class SinglePlayerGame extends Component  {
     })
   }
    splitSnake =(snake)=>{
-     console.log('snake:',snake)
-    const body = [...snake];
+     const body = [...snake];
     const head = body.shift();
-  console.log('newSnake:', [head, body])
-    return [head, body];
+     return [head, body];
   }
    array = [];
    create = ()=>{
@@ -37,7 +35,6 @@ class SinglePlayerGame extends Component  {
   }
   render(){
         const {userName,points, size, snake1, food, isLoading} = this.state;
-        console.log(this.state)
           this.create();
   return (
 <div>

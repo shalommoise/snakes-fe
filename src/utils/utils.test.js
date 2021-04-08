@@ -36,7 +36,7 @@ test('3 is 1,4', () => {
     expect(indexConverter(30, 599)).toEqual([20,30]);
   });
 })
-describe.only("moveSnake", ()=>{
+describe("moveSnake", ()=>{
   const {moveSnake} = utils
 test("Move Right", ()=>{
   const snake = [[5,15],[4,15],[3,15]];
@@ -59,4 +59,26 @@ const direction = {x: 0, y: 1}
   expect(moveSnake(snake, direction)).toEqual([[5,16],[5,15],[4,15]])
 
 })
+})
+describe.only("strSnakeToNumSnake", ()=>{
+  const {strSnakeToNumSnake} = utils;
+  test("empty arr returns arr", ()=>{
+  expect(strSnakeToNumSnake([])).toEqual([]);
+  expect(strSnakeToNumSnake()).toEqual([]);
+   expect(strSnakeToNumSnake('')).toEqual([]);
+  });
+  test("return '1' to 1", ()=>{
+    expect(strSnakeToNumSnake(['1'])).toEqual([1]);
+  })
+  test("Works for 2 numbers", ()=>{
+expect(strSnakeToNumSnake(['1', '2'])).toEqual([1, 2]);
+
+  })
+  test("Works for nested array", ()=>{
+    expect(strSnakeToNumSnake([['1', '2'], ['3','4']])).toEqual([[1, 2], [3,4]]);
+  })
+  test("works for long snakes", ()=>{
+   
+    expect(strSnakeToNumSnake([['5','15'],[4,'15'],['3',15]])).toEqual([[5,15],[4,15],[3,15]]);
+  })
 })

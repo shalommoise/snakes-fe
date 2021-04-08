@@ -10,3 +10,12 @@ export const postGame =(player1, player2, snake2)=>{
     return game;
   }).catch((err)=>err)
 }
+
+export const getSingleGame =(id)=>{
+return axiosInstance
+.get(`games/${id}`).then(({data: {game}})=>{
+  return game;
+}).catch((err)=>err)
+}
+
+export const changeSnake =()=>{}

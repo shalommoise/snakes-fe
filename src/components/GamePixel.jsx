@@ -1,19 +1,24 @@
 import React from 'react';
 import * as utils from "../utils/utils"
 const GamePixel = (props) => {
-  const {index, size, head, body, food} = props;
+  const {index, size, /*head, body,*/ snake, food} = props;
     const {indexConverter} = utils
   const pixel = indexConverter(size, index);
-  // let className = 'pixel';
-
+ const splitSnake =(snake)=>{
+     const body = [...snake];
+    const head = body.shift();
+     return [head, body];
+  }
 const isPixelCoordinate = (coordinate, pixel)=>{
   let isCoordinate = false;
   if(coordinate[0] === pixel[0] && coordinate[1] === pixel[1]) isCoordinate = true; 
   return isCoordinate; 
 }
-const checkPixel =()=>{
-    let className = 'pixel';
 
+const checkPixel =()=>{
+  let className = 'pixel';
+const head = splitSnake(snake)[0];
+const body =splitSnake(snake)[1];
 if(isPixelCoordinate(head, pixel)) className = 'head';
 if(isPixelCoordinate(food, pixel)) className = 'food';
 // if(body.filter((piece)=>isPixelCoordinate(food, pixel)).length > 0);
@@ -26,9 +31,7 @@ if(count) className = 'body';
 }
 
   return (
-    <div className={checkPixel()}  name={index} id={pixel} >
-      
-    </div>
+   <div className={checkPixel()}  name={index} id={pixel} ></div>
   );
 };
 

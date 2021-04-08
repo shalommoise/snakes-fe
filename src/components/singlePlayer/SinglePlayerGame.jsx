@@ -3,13 +3,13 @@ import GamePixel from "../GamePixel"
 import * as api from "../../utils/api";
 import {moveSnake} from "../../utils/utils";
 class SinglePlayerGame extends Component  {
-  state ={
+  state = {
     userName: this.props.userName,
     points: 0,
     player2: '',
     snake2: [],
     isLoading: true,
-    movement: 'still',
+    movement: 'right',
     pixelCount: this.props.pixelCount
   }
   //get game by id
@@ -39,19 +39,12 @@ class SinglePlayerGame extends Component  {
   componentDidMount(){
     // const {userName,player2, snake2} = this.state
     // this.startGame(userName,player2, snake2); 
-    console.log(this.state.pixelCount.length)
      this.startGame('606ee9f0ae02d60015b13a79')
   }
-  directions = {
-    still: {x: 0, y: 0},
-    up: {x: 0, y: -1},
-    down: {x:0, y: 1},
-    right: {x:1, y:0},
-    left: {x:-1, y:0}
 
-  }
   snakeMoving = ()=>{
-    const {snake1,movement } = this.state
+    const {snake1, movement } = this.state
+    // console.log("oldSnake:", snake1, "newSnake:", moveSnake(snake1, movement))
     this.setState({snake1: moveSnake(snake1, movement)})
       }
   render(){

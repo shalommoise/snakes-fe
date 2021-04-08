@@ -21,14 +21,40 @@ const directions = {
   }
 
 export const moveSnake = (snake, direction)=>{
-  console.log(direction, directions[direction])
+  
  const copySnake = strSnakeToNumSnake(snake);
  const oldHead = copySnake[0];
  const [x,y] = strSnakeToNumSnake(oldHead);
-
  const newHead = [x + directions[direction].x, y + directions[direction].y];
   copySnake.unshift(newHead);
   copySnake.pop();
-  console.log(copySnake)
+
    return copySnake;
 }
+
+export const checkKey = (keyCode, prevMove)=> {
+ 
+
+//  if(keyCode === 32 ||keyCode === 13 )    
+
+    if (keyCode === 38) {
+       
+          if(prevMove !== 'down')  return 'up';
+    }
+    else if (keyCode ===40) {
+    
+        if(prevMove !== 'up')  return 'down';
+    }
+    else if (keyCode === 37) {
+     
+       if(prevMove !== 'right')  return 'left';
+        
+    }
+    else if (keyCode ===  39) {
+  
+        if(prevMove !== 'left')  return 'right';
+    }
+    else return prevMove;
+
+}
+

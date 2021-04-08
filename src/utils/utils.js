@@ -2,7 +2,12 @@
   if(!index && index !== 0 || !size) return [];
   const newI = index + 1;
  const remiander = newI % size;
-  const x = remiander ?  Math.ceil(newI/size): newI/size;
-  const y = remiander ?  remiander : size;
+  const x = remiander ?  remiander : size;
+  const y = remiander ?  Math.ceil(newI/size): newI/size;
+  
   return [x, y]
+}
+
+export const moveSnake = (snake, direction)=>{
+
 }

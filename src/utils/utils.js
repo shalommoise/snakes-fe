@@ -63,3 +63,9 @@ export  const splitSnake =(snake)=>{
     const head = body.shift();
      return [head, body];
   }
+
+  export const isPixelCoordinate = (coordinate, pixel)=>{
+  let isCoordinate = false;
+  if(coordinate[0] === pixel[0] && coordinate[1] === pixel[1]) isCoordinate = true; 
+  return isCoordinate; 
+}

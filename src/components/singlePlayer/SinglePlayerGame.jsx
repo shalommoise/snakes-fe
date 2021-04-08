@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GamePixel from "../GamePixel"
 import * as api from "../../utils/api";
-import {moveSnake, checkKey} from "../../utils/utils";
+import {moveSnake, checkKey, isPixelCoordinate} from "../../utils/utils";
 class SinglePlayerGame extends Component  {
   state = {
     userName: this.props.userName,
@@ -43,8 +43,13 @@ handleKeyDown= (e)=> {
 
 
   snakeMoving = ()=>{
-    const {snake1, movement } = this.state;  
-    this.setState({snake1: moveSnake(snake1, movement)})
+    const {snake1, movement, food } = this.state;  
+const newSnake =  moveSnake(snake1, movement);
+    if(isPixelCoordinate(newSnake[0], food)) api.foodEaten('606ee9f0ae02d60015b13a79', newSnake, food).then((game)=>{
+       const {food, points1} = game;
+       this.setState({food, points: points1})
+    })
+    this.setState({snake1: newSnake});
       }
        
   render(){

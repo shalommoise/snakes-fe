@@ -32,7 +32,31 @@ test('3 is 1,4', () => {
   test('59 is 1,60', () => {
    expect(indexConverter(30, 59)).toEqual([2,30]);
   });
-  test('599 is 20,30 ', () => {
+  test('599 is 20,30', () => {
     expect(indexConverter(30, 599)).toEqual([20,30]);
   });
+})
+describe.only("moveSnake", ()=>{
+  const {moveSnake} = utils
+test("Move Right", ()=>{
+  const snake = [[5,15],[4,15],[3,15]];
+  const direction = {x: 1, y: 0}
+  expect(moveSnake(snake, direction)).toEqual([[6,15],[5,15],[4,15]])
+})
+test("Move left", ()=>{
+  const snake = [[3,15],[4,15],[5,15]];
+  const direction = {x: -1, y: 0}
+  expect(moveSnake(snake, direction)).toEqual([[2,15],[3,15],[4,15]])
+})
+test("Move Up", ()=>{
+const snake = [[5,15],[4,15],[3,15]];
+const direction = {x: 0, y: -1}
+  expect(moveSnake(snake, direction)).toEqual([[5,14],[5,15],[4,15]])
+})
+test("Move Down", ()=>{
+const snake = [[5,15],[4,15],[3,15]];
+const direction = {x: 0, y: 1}
+  expect(moveSnake(snake, direction)).toEqual([[5,16],[5,15],[4,15]])
+
+})
 })

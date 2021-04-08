@@ -5,9 +5,17 @@ import SinglePlayerGame from "./singlePlayer/SinglePlayerGame";
 class SinglePlayer extends Component {
   state= {
     player1: 'player1',
-     gameOn: false
-  }
- 
+     gameOn: false, 
+    }
+ create = ()=>{
+      const arr = [];
+      let num = 1;
+    while (num <= 900){
+        arr.push(" ")
+         num++;
+    }
+    return arr;
+   }
   handleChange=(changeEvent)=>{
      const {value} = changeEvent.target;
      
@@ -18,7 +26,7 @@ this.setState({gameOn: true});
   }
   
   render() {
-   
+  
     return (
       
       <div className="frame">
@@ -30,7 +38,7 @@ this.setState({gameOn: true});
      <button onClick={this.start}>Start</button>
        
       </div>
-     : <SinglePlayerGame userName={this.state.player1}/>
+     : <SinglePlayerGame userName={this.state.player1} pixelCount={this.create()}/>
   }
        <Link to="/">Home</Link>
       </div>

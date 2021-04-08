@@ -28,12 +28,7 @@ class SinglePlayerGame extends Component  {
  
     })
   }
-   splitSnake =(snake)=>{
-     const body = [...snake];
-    const head = body.shift();
-     return [head, body];
-  }
-  
+   
 
   componentDidMount(){
     // const {userName,player2, snake2} = this.state
@@ -48,7 +43,7 @@ handleKeyDown= (e)=> {
 
 
   snakeMoving = ()=>{
-    const {snake1, movement } = this.state  
+    const {snake1, movement } = this.state;  
     this.setState({snake1: moveSnake(snake1, movement)})
       }
        

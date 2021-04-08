@@ -58,3 +58,8 @@ export const checkKey = (keyCode, prevMove)=> {
 
 }
 
+export  const splitSnake =(snake)=>{
+     const body = [...snake];
+    const head = body.shift();
+     return [head, body];
+  }

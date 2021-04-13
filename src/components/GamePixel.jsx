@@ -6,7 +6,6 @@ const GamePixel = (props) => {
   const pixel = indexConverter(size, index);
  
 
-
 const checkPixel =()=>{
   let className = 'pixel';
 const head = splitSnake(snake)[0];

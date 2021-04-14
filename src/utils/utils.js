@@ -17,7 +17,6 @@ const directions = {
     down: {x:0, y: 1},
     right: {x:1, y:0},
     left: {x:-1, y:0}
-
   }
 
 export const moveSnake = (snake, direction)=>{
@@ -35,27 +34,15 @@ export const moveSnake = (snake, direction)=>{
 export const checkKey = (keyCode, prevMove)=> {
  
 
-//  if(keyCode === 32 ||keyCode === 13 )    
-
-    if (keyCode === 38) {
-       
-          if(prevMove !== 'down')  return 'up';
-    }
-    else if (keyCode ===40) {
+    if (keyCode === 38 && prevMove !== 'down')  return 'up';
     
-        if(prevMove !== 'up')  return 'down';
-    }
-    else if (keyCode === 37) {
-     
-       if(prevMove !== 'right')  return 'left';
-        
-    }
-    else if (keyCode ===  39) {
-  
-        if(prevMove !== 'left')  return 'right';
-    }
-    else return prevMove;
-
+     if (keyCode === 40 && prevMove !== 'up')  return 'down';
+    
+     if (keyCode === 37 && prevMove !== 'right')  return 'left';  
+    
+     if (keyCode ===  39 && prevMove !== 'left')  return 'right';
+    
+     return prevMove;
 }
 
 export  const splitSnake =(snake)=>{

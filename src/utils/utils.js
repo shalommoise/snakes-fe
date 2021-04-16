@@ -16,21 +16,29 @@ const directions = {
     up: {x: 0, y: -1},
     down: {x:0, y: 1},
     right: {x:1, y:0},
-    left: {x:-1, y:0}
+    left: {x:-1, y:0},
+    still: {x:0, y:0}
   }
 
-export const moveSnake = (snake, direction)=>{
+export const moveSnake = (snake, direction, eat)=>{
   
  const copySnake = strSnakeToNumSnake(snake);
  const oldHead = copySnake[0];
+ if (direction === 'down' && oldHead[1] === 30 ||
+     direction === 'up' && oldHead[1] === 1 ||
+     direction === 'left' && oldHead[0] === 1 ||
+     direction === 'right' && oldHead[0] === 30 
+    ) {
+    return copySnake;   
+ } else {
  const [x,y] = strSnakeToNumSnake(oldHead);
  const newHead = [x + directions[direction].x, y + directions[direction].y];
   copySnake.unshift(newHead);
-  copySnake.pop();
+ !eat &&  copySnake.pop();
 
    return copySnake;
+   }
 }
-
 export const checkKey = (keyCode, prevMove)=> {
  
 
@@ -53,6 +61,8 @@ export  const splitSnake =(snake)=>{
 
   export const isPixelCoordinate = (coordinate, pixel)=>{
   let isCoordinate = false;
+  if(!coordinate) return isCoordinate;
   if(coordinate[0] === pixel[0] && coordinate[1] === pixel[1]) isCoordinate = true; 
   return isCoordinate; 
 }
+

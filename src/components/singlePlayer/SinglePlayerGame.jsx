@@ -14,11 +14,10 @@ class SinglePlayerGame extends Component  {
     countDown: 3,
     food: [],
     snake1: [],
-    size: 30
+    size: 30,
+    movement: "right"
   }
-  //get game by id
-  //move snake
-  // eat food, food eaten => get score
+
 localId = '6079b4adba28a1764b96421e'
    startGame = (id, player1, player2, snake2)=>{
     // api.postGame(player1, player2, snake2)
@@ -43,11 +42,13 @@ countGame =(number)=>{
 number ? this.setState({countDown: newNumber, isLoading: false}) :
 this.startGame(this.localId);
 this.setState({active:true}); 
-}
+} 
   componentDidMount(){
     // const {userName,player2, snake2} = this.state
     // this.startGame(userName,player2, snake2); 
-        this.startGame(this.localId)
+        this.startGame(this.localId);
+        this.constantMoving();
+        
   }
   componentWillUnmount(){
     const {food, snake1} = this.state;
@@ -56,29 +57,34 @@ this.setState({active:true});
 
 handleKeyDown= (e)=> {
   const {movement, active} = this.state; 
-
+console.log(movement, active)
 if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 
-  this.setState({movement: checkKey(e.keyCode, movement)})
+else  this.setState({movement: checkKey(e.keyCode, movement)})
 }
-componentDidUpdate(prevProps, PrevState) {
+
+componentDidUpdate(prevProps, prevState) {
   const {countDown}= this.state
   if(countDown){
    setTimeout(() => {
      this.countGame(countDown) 
     }, 1000);
 } 
-setInterval(() => {
-  this.snakeMoving()
-}, 10000);
+
   if(isPixelCoordinate(this.state.snake1[0], this.state.food)) {  
 api.getSingleGame(this.localId).then((game)=>this.setState({food: game.food}));   
-}
+  }
   
+}
+constantMoving =()=>{
+
+setInterval(() => {
+  this.snakeMoving();
+}, 1000);
 }
 
   snakeMoving = ()=>{
-    const {snake1, movement, food, active } = this.state;  
+    const {snake1, food, active , movement} = this.state;  
 let newSnake = active ?  moveSnake(snake1, movement) : snake1;
     if(isPixelCoordinate(newSnake[0], food)) api.foodEaten('6079b4adba28a1764b96421e', newSnake, food).then((game)=>{
        const {food, points1} = game;
@@ -95,7 +101,7 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
 
       return (
        
-<div>
+<div onKeyUpCapture={this.handleKeyDown}>
 {isLoading ? <p>Loading...</p> : countDown > 0? 
 <div>
     <h3>Name: {userName}</h3>
@@ -106,12 +112,14 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
 })}
     </div>
 </div> :
-    <div  onKeyUpCapture={this.handleKeyDown}>
+    <div  >
       <h3>Name: {userName}</h3>
       <h3>Score: {points} </h3>
-   <button onClick={this.snakeMoving}>Moves</button>
+   <button onClick={this.constantMoving}>Moves</button>
    <button onClick={this.gameStats}> get game</button>
+   <button onClick={()=>{this.setState({active: !active})}}>{active ? <p>Pause</p> : <p>Play</p>}</button>
    {active ? <p>Pause</p> : <p>Play</p>}
+   
 <div className="game">
 {pixelCount.map((pixel, index)=>{
    return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food}/>

@@ -49,7 +49,7 @@ this.setState({active:true});
         this.startGame(this.localId);
         setInterval(() => {
   this.snakeMoving();
-}, 1000);
+}, 100);
         
   }
   componentWillUnmount(){
@@ -78,12 +78,6 @@ api.getSingleGame(this.localId).then((game)=>this.setState({food: game.food}));
   }
   
 }
-constantMoving =()=>{
-
-setInterval(() => {
-  this.snakeMoving();
-}, 1000);
-}
 
   snakeMoving = ()=>{
     const {snake1, food, active , movement} = this.state;  
@@ -108,7 +102,7 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
 <div>
     <h3>Name: {userName}</h3>
       <h3>Score: {points} </h3>
-      <button onClick={()=>{this.setState({active: true})}}>Start</button>
+     <button onClick={()=>{this.setState({active: true})}}><p>Start</p></button>
    <div className="game" >
 {pixelCount.map((pixel, index)=>{
    return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food} number={count[countDown]}/>
@@ -118,8 +112,8 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
     <div  >
       <h3>Name: {userName}</h3>
       <h3>Score: {points} </h3>
-   <button onClick={()=>{this.setState({active: !active})}}>{active ? 'Pause' :'Play'}</button>
-   {active ? <p>Pause</p> : <p>Play</p>}
+   <button onClick={()=>{this.setState({active: !active})}}>{active ? <p>Pause</p> : <p>Play</p>}</button>
+ 
    
 <div className="game">
 {pixelCount.map((pixel, index)=>{

@@ -11,7 +11,7 @@ class SinglePlayerGame extends Component  {
     snake2: [],
     isLoading: true,
     pixelCount: this.props.pixelCount,
-    countDown: 3,
+    countDown: 4,
     food: [],
     snake1: [],
     size: 30,
@@ -47,7 +47,9 @@ this.setState({active:true});
     // const {userName,player2, snake2} = this.state
     // this.startGame(userName,player2, snake2); 
         this.startGame(this.localId);
-        this.constantMoving();
+        setInterval(() => {
+  this.snakeMoving();
+}, 1000);
         
   }
   componentWillUnmount(){
@@ -56,19 +58,19 @@ this.setState({active:true});
   }
 
 handleKeyDown= (e)=> {
-  const {movement, active} = this.state; 
-console.log(movement, active)
-if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 
+  const {movement, active} = this.state; 
+if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 else  this.setState({movement: checkKey(e.keyCode, movement)})
 }
 
 componentDidUpdate(prevProps, prevState) {
-  const {countDown}= this.state
-  if(countDown){
+  const {countDown, active}= this.state
+  if(countDown && active){
    setTimeout(() => {
      this.countGame(countDown) 
     }, 1000);
+
 } 
 
   if(isPixelCoordinate(this.state.snake1[0], this.state.food)) {  
@@ -89,10 +91,10 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
     if(isPixelCoordinate(newSnake[0], food)) api.foodEaten('6079b4adba28a1764b96421e', newSnake, food).then((game)=>{
        const {food, points1} = game;
      newSnake = moveSnake(this.state.snake1, this.state.movement, true);
-       this.setState({food, points: points1})
+       this.setState({food, points: points1, snake1: newSnake})
     })
     
-    this.setState({snake1: newSnake});
+   else this.setState({snake1: newSnake});
       }
               
   render(){
@@ -101,12 +103,13 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
 
       return (
        
-<div onKeyUpCapture={this.handleKeyDown}>
+<div onKeyDown={this.handleKeyDown}>
 {isLoading ? <p>Loading...</p> : countDown > 0? 
 <div>
     <h3>Name: {userName}</h3>
       <h3>Score: {points} </h3>
-   <div className="game">
+      <button onClick={()=>{this.setState({active: true})}}>Start</button>
+   <div className="game" >
 {pixelCount.map((pixel, index)=>{
    return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food} number={count[countDown]}/>
 })}
@@ -115,9 +118,7 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
     <div  >
       <h3>Name: {userName}</h3>
       <h3>Score: {points} </h3>
-   <button onClick={this.constantMoving}>Moves</button>
-   <button onClick={this.gameStats}> get game</button>
-   <button onClick={()=>{this.setState({active: !active})}}>{active ? <p>Pause</p> : <p>Play</p>}</button>
+   <button onClick={()=>{this.setState({active: !active})}}>{active ? 'Pause' :'Play'}</button>
    {active ? <p>Pause</p> : <p>Play</p>}
    
 <div className="game">

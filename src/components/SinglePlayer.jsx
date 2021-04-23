@@ -35,7 +35,7 @@ this.setState({gameOn: true});
           <label htmlFor="userName"></label>
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/>
      <br/>
-     <button onClick={this.start}>Start</button>
+     <button onClick={this.start}>Submit</button>
        
       </div>
      : <SinglePlayerGame userName={this.state.player1} pixelCount={this.create()}/>

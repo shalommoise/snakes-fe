@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GamePixel from "../GamePixel"
 import * as api from "../../utils/api";
-import {moveSnake, checkKey, isPixelCoordinate} from "../../utils/utils";
+import {moveSnake, checkKey, isPixelCoordinate, isSnakeEatingItself} from "../../utils/utils";
 import {count} from '../../utils/countdown';
 import SingleGameStats from './SingleGameStats'
 class SinglePlayerGame extends Component  {
@@ -17,7 +17,8 @@ class SinglePlayerGame extends Component  {
     snake1: [],
     size: 30,
     movement: "right",
-    start: false
+    start: false,
+    endGameMsg: "You hit the side"
   }
 
 
@@ -52,7 +53,7 @@ this.setState({active:true});
     }, 1000);
 } else if(countDown !==prevState.countDown) this.setState({active: true})
 if(prevState.food !==food) api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1}))
-
+if(isSnakeEatingItself(snake1)) this.setState({snake1: [], endGameMsg: "You bit yor tail!"})
 if(!snake1.length && snake1 !== prevState.snake1) {
   api.editGame(_id, snake1);
   this.setState({game_over: true, active: false});
@@ -78,7 +79,7 @@ const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSna
      }
               
   render(){
-        const {userName,points, size, snake1, food, isLoading, pixelCount, active, countDown, game_over} = this.state;
+        const {userName,points, size, snake1, food, isLoading, pixelCount, active, countDown, game_over, endGameMsg} = this.state;
       
    return (
        
@@ -98,6 +99,7 @@ const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSna
       game_over ? 
       <div>
         <h2>Game Over</h2>
+        <p>{endGameMsg}</p>
       </div> :
     <div>
     <button onClick={()=>{this.setState({active: !active})}}>{active ? <p>Pause</p> : <p>Play</p>}</button> 

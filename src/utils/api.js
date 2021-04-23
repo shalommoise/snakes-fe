@@ -25,3 +25,4 @@ export const foodEaten =(id, snake1, food)=>{
   return game;
 }).catch((err)=>err)
 }
+

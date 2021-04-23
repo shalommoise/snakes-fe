@@ -21,15 +21,15 @@ const directions = {
   }
 
 export const moveSnake = (snake, direction, eat)=>{
-  
  const copySnake = strSnakeToNumSnake(snake);
  const oldHead = copySnake[0];
+
  if (direction === 'down' && oldHead[1] === 30 ||
      direction === 'up' && oldHead[1] === 1 ||
      direction === 'left' && oldHead[0] === 1 ||
      direction === 'right' && oldHead[0] === 30 
     ) {
-    return copySnake;   
+    return [];   
  } else {
  const [x,y] = strSnakeToNumSnake(oldHead);
  const newHead = [x + directions[direction].x, y + directions[direction].y];

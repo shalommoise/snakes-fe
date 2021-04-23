@@ -40,12 +40,12 @@ this.setState({active:true});
     this.startGame(userName, snake2, player2); 
         
         setInterval(() => {
-  this.snakeMoving();
+   this.snakeMoving();
 }, 100);
         
   }
   componentDidUpdate(prevProps, prevState) {
-  const {countDown, start, food, _id}= this.state
+  const {countDown, start, food, _id,snake1}= this.state
   if(countDown && start){
    setTimeout(() => {
      this.countGame(countDown) 
@@ -53,6 +53,11 @@ this.setState({active:true});
 } else if(countDown !==prevState.countDown) this.setState({active: true})
 if(prevState.food !==food) api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1}))
 
+if(!snake1.length && snake1 !== prevState.snake1) {
+  console.log(_id);
+  api.foodEaten(_id, snake1);
+  this.setState({gamer_over: true, active: false});
+}
   }
 
 
@@ -67,13 +72,10 @@ else  this.setState({movement: checkKey(e.keyCode, movement)})
     const {snake1, active , movement, food, _id} = this.state;  
 const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
     this.setState({snake1: newSnake});
-    if(isPixelCoordinate(snake1[0], food)) {
- 
-      api.foodEaten(_id, snake1, food)
-    .then((game)=>{
-      
-      this.setState({food: game.food, points: game.points1})})
-  }
+
+    if(isPixelCoordinate(snake1[0], food)) api.foodEaten(_id, snake1, food)
+    .then((game)=> this.setState({food: game.food, points: game.points1}))
+
      }
               
   render(){

@@ -21,6 +21,7 @@ const directions = {
   }
 
 export const moveSnake = (snake, direction, eat)=>{
+  if(!snake.length) return snake;
  const copySnake = strSnakeToNumSnake(snake);
  const oldHead = copySnake[0];
 

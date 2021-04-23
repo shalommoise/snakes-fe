@@ -6,6 +6,7 @@ class SinglePlayer extends Component {
   state= {
     player1: 'player1',
      gameOn: false, 
+     ready: false
     }
  create = ()=>{
       const arr = [];
@@ -19,7 +20,7 @@ class SinglePlayer extends Component {
   handleChange=(changeEvent)=>{
      const {value} = changeEvent.target;
      
-     this.setState({player1: value})
+     this.setState({player1: value, ready: true})
   }
   start=()=>{
 this.setState({gameOn: true});
@@ -35,7 +36,7 @@ this.setState({gameOn: true});
           <label htmlFor="userName"></label>
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/>
      <br/>
-     <button onClick={this.start}>Submit</button>
+     <button onClick={this.start} disabled={!this.state.ready}>Submit</button>
        
       </div>
      : <SinglePlayerGame userName={this.state.player1} pixelCount={this.create()}/>

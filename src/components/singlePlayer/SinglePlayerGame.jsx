@@ -8,7 +8,7 @@ class SinglePlayerGame extends Component  {
   state = {
     userName: this.props.userName,
     points: 0,
-    player2: '',
+    player2: null,
     snake2: [],
     isLoading: true,
     pixelCount: this.props.pixelCount,
@@ -21,11 +21,11 @@ class SinglePlayerGame extends Component  {
   }
 
 
-   startGame = (id, player1, snake2)=>{
-    api.postGame(player1, snake2)
+   startGame = (player1, snake2, player2)=>{
+    api.postGame(player1, snake2, player2)
     .then((game)=>{
       const {snake1, food, points1, game_over, active,size, _id} = game;
-      this.setState({snake1, food, points1, game_over, active,size, _id, isLoading: false})
+      this.setState({snake1, food, points: points1, game_over, active,size, _id, isLoading: false})
     })
   
   }
@@ -37,7 +37,7 @@ this.setState({active:true});
 } 
   componentDidMount(){
     const {userName,player2, snake2} = this.state
-    this.startGame(userName,player2, snake2); 
+    this.startGame(userName, snake2, player2); 
         
         setInterval(() => {
   this.snakeMoving();
@@ -45,18 +45,18 @@ this.setState({active:true});
         
   }
   componentDidUpdate(prevProps, prevState) {
-  const {countDown, start}= this.state
+  const {countDown, start, food, _id}= this.state
   if(countDown && start){
    setTimeout(() => {
      this.countGame(countDown) 
     }, 1000);
 } else if(countDown !==prevState.countDown) this.setState({active: true})
+if(prevState.food !==food) api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1}))
 
   }
 
 
 handleKeyDown= (e)=> {
-
   const {movement, active} = this.state; 
 if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 else  this.setState({movement: checkKey(e.keyCode, movement)})
@@ -64,16 +64,22 @@ else  this.setState({movement: checkKey(e.keyCode, movement)})
 
 
   snakeMoving = ()=>{
-    const {snake1, active , movement, food} = this.state;  
+    const {snake1, active , movement, food, _id} = this.state;  
 const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
     this.setState({snake1: newSnake});
+    if(isPixelCoordinate(snake1[0], food)) {
+ 
+      api.foodEaten(_id, snake1, food)
+    .then((game)=>{
+      
+      this.setState({food: game.food, points: game.points1})})
+  }
      }
               
   render(){
         const {userName,points, size, snake1, food, isLoading, pixelCount, active, countDown} = this.state;
-        
-
-      return (
+      
+   return (
        
 <div onKeyDown={this.handleKeyDown}>
    <SingleGameStats userName={userName} points={points}/>

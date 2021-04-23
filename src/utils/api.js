@@ -4,9 +4,9 @@ const axiosInstance = axios.create({
   // baseURL: "https://snakes-be.herokuapp.com/api/",
   baseURL: "http://localhost:9090/api/",
 });
-export const postGame =(player1, snake2)=>{
+export const postGame =(player1, snake2, player2)=>{
   return axiosInstance
-  .post('games/', {player1, snake2})
+  .post('games/', {player1, snake2, player2})
   .then(({data: {game}})=>{
     return game;
   }).catch((err)=>err)

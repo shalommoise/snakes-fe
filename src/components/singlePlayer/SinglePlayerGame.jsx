@@ -3,6 +3,7 @@ import GamePixel from "../GamePixel"
 import * as api from "../../utils/api";
 import {moveSnake, checkKey, isPixelCoordinate} from "../../utils/utils";
 import {count} from '../../utils/countdown';
+import SingleGameStats from './SingleGameStats'
 class SinglePlayerGame extends Component  {
   state = {
     userName: this.props.userName,
@@ -98,11 +99,11 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
       return (
        
 <div onKeyDown={this.handleKeyDown}>
+   <SingleGameStats userName={userName} points={points}/>
 {isLoading ? <p>Loading...</p> : countDown > 0? 
 <div>
-    <h3>Name: {userName}</h3>
-      <h3>Score: {points} </h3>
-     <button onClick={()=>{this.setState({active: true})}}><p>Start</p></button>
+  {/* <SingleGameStats userName={userName} points={points}/> */}
+      <button onClick={()=>{this.setState({active: true})}}><p>Click to start</p></button>
    <div className="game" >
 {pixelCount.map((pixel, index)=>{
    return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food} number={count[countDown]}/>
@@ -110,8 +111,7 @@ let newSnake = active ?  moveSnake(snake1, movement) : snake1;
     </div>
 </div> :
     <div  >
-      <h3>Name: {userName}</h3>
-      <h3>Score: {points} </h3>
+      {/* <SingleGameStats userName={userName} points={points}/> */}
    <button onClick={()=>{this.setState({active: !active})}}>{active ? <p>Pause</p> : <p>Play</p>}</button>
  
    

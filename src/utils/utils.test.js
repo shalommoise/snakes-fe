@@ -82,3 +82,18 @@ expect(strSnakeToNumSnake(['1', '2'])).toEqual([1, 2]);
     expect(strSnakeToNumSnake([['5','15'],[4,'15'],['3',15]])).toEqual([[5,15],[4,15],[3,15]]);
   })
 })
+describe("isSnakeEatingItself",()=>{
+  const {isSnakeEatingItself} = utils;
+  test("empty snake", ()=>{
+    const snake = [];
+    expect(isSnakeEatingItself(snake)).toBe(false);
+  })
+  test("not eating itself returns false", ()=>{
+    const snake = [[5,16],[5,15],[4,15]];
+    expect(isSnakeEatingItself(snake)).toBe(false);
+  })
+  test("Snake eats itself === true", ()=>{
+    const snake = [[5,16],[5,15],[4,15],[4,16],[5,16]];
+expect(isSnakeEatingItself(snake)).toBe(true)
+  })
+})

@@ -67,3 +67,12 @@ export  const splitSnake =(snake)=>{
   return isCoordinate; 
 }
 
+export const isSnakeEatingItself =(snake)=>{
+  let snakeEatItself = false;
+if(!snake || !snake.length) return snakeEatItself;
+ const [head, body] =  splitSnake(snake);
+body.forEach((piece)=>{
+  if(isPixelCoordinate(piece, head)) snakeEatItself = true;
+})
+  return snakeEatItself;
+}

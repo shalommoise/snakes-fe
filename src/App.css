@@ -35,3 +35,15 @@
   height: 20px;
   background-color: greenyellow;
 }
+.multi-game_options {
+  display: flex;
+  justify-content: center;
+}
+
+.multi-game_options > div {
+  margin: 10px;
+}
+.Copy_code_from_friend {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

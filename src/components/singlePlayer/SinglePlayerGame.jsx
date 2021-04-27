@@ -52,7 +52,7 @@ this.setState({active:true});
      this.countGame(countDown) 
     }, 1000);
 } else if(countDown !==prevState.countDown) this.setState({active: true})
-if(prevState.food !==food) api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1}))
+
 if(isSnakeEatingItself(snake1)) this.setState({snake1: [], endGameMsg: "You bit yor tail!"})
 if(!snake1.length && snake1 !== prevState.snake1) {
   api.editGame(_id, snake1);
@@ -74,7 +74,7 @@ const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSna
     this.setState({snake1: newSnake});
 
     if(isPixelCoordinate(snake1[0], food)) api.editGame(_id, snake1, food)
-    .then((game)=> this.setState({food: game.food, points: game.points1}))
+    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1})))
 
      }
               

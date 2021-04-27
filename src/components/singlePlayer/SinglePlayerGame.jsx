@@ -46,7 +46,7 @@ this.setState({active:true});
         
   }
   componentDidUpdate(prevProps, prevState) {
-  const {countDown, start, food, _id,snake1}= this.state
+  const {countDown, start,_id,snake1}= this.state
   if(countDown && start){
    setTimeout(() => {
      this.countGame(countDown) 

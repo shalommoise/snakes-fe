@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {  Link } from "@reach/router";
-class MultiPlayer extends Component {
-  render() {
-    return (
+import OwnGameStart from './multiPlayer/OwnGameStart'
+
+
+const MultiPlayer = () => {
+  return (
       <div  className="frame">
          <h2>Multi-Player</h2>
         <Link to="/">Home</Link>
         <div className="multi-game_options">
           <div>Join random Game</div>
-           <div>Start your own Game</div>  
+          <OwnGameStart />
         </div>
    <div className="Copy_code_from_friend">
      Enter Code from friend
@@ -16,8 +18,7 @@ class MultiPlayer extends Component {
     </div>
 
       </div>
-    );
-  }
-}
+  );
+};
 
 export default MultiPlayer;

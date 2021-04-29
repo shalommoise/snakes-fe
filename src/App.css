@@ -47,3 +47,12 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.icon {
+  background-color: blueviolet;
+  color: aliceblue;
+  cursor: pointer;
+}
+.icon:hover {
+  background-color: aliceblue;
+  color: blueviolet;
+}

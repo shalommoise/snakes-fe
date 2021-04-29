@@ -9,7 +9,7 @@ const MultiPlayer = () => {
          <h2>Multi-Player</h2>
         <Link to="/">Home</Link>
         <div className="multi-game_options">
-          <div>Join random Game</div>
+          <div className="icon">Join random Game</div>
           <OwnGameStart />
         </div>
    <div className="Copy_code_from_friend">

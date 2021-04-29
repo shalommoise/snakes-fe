@@ -19,6 +19,7 @@ return axiosInstance
 }).catch((err)=>err)
 }
 
+
 export const editGame =(id, snake1, food)=>{
   return axiosInstance
 .patch(`games/${id}`, {snake1, food}).then(({data: {game}})=>{
@@ -26,3 +27,9 @@ export const editGame =(id, snake1, food)=>{
 }).catch((err)=>err)
 }
 
+export const changeNames =(id, player1, player2) =>{
+   return axiosInstance
+.patch(`games/${id}`, {player1, player2}).then(({data: {game}})=>{
+  return game;
+}).catch((err)=>err)
+}

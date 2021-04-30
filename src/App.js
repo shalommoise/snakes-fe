@@ -19,7 +19,7 @@ function App() {
 <SinglePlayer path="/single-player"/>
 <MultiPlayer path="/multi-player"/>
 <Instructions path="/instructions"/>
-<MultiPlayerGame path="/multi-player/:id"/>
+<MultiPlayerGame path="/multi-player/:id/:player"/>
      </Router>
 <br/>
 

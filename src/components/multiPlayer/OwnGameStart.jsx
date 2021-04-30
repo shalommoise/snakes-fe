@@ -31,7 +31,7 @@ const {clicked, _id} = this.state
           <label htmlFor="userName"></label>
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/>
      <br/>
-  <Link to={`/multi-player/${_id}`} onClick={this.makeGame} disabled={!this.state.ready}>Submit</Link> 
+  <Link to={`/multi-player/${_id}/1`} onClick={this.makeGame} disabled={!this.state.ready}>Submit</Link> 
         </div>
        
          }  

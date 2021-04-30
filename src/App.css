@@ -35,6 +35,17 @@
   height: 20px;
   background-color: greenyellow;
 }
+.body2 {
+  width: 20px;
+  height: 20px;
+  background-color: greenyellow;
+}
+
+.head2 {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+}
 .multi-game_options {
   display: flex;
   justify-content: center;

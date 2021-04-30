@@ -1,10 +1,11 @@
 import React from 'react';
 import * as utils from "../utils/utils"
 const GamePixel = (props) => {
-  const {index, size, /*head, body,*/ snake, food, number} = props;
+  const {index, size, snake, food, number, snake2} = props;
+
     const {indexConverter, splitSnake, isPixelCoordinate} = utils
   const pixel = indexConverter(size, index);
- 
+
 
 const checkPixel =()=>{
   let className = 'pixel';

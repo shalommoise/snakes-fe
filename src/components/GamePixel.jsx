@@ -33,7 +33,7 @@ body.forEach((piece)=>{
 if(count) className = 'body';
   
 let count2 = 0; 
-body.forEach((piece)=>{
+body2.forEach((piece)=>{
   if(isPixelCoordinate(piece, pixel)) count2++
 });
 if(count2) className = 'body2';

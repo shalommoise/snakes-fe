@@ -19,6 +19,7 @@ class OwnGameStart extends Component {
      const {value} = changeEvent.target;
      
      this.setState({player1: value, ready: true})
+     api.changeNames(this.state._id, this.state.player1)
   }
   render() {
 const {clicked, _id} = this.state

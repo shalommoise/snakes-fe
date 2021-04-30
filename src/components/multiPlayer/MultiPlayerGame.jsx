@@ -13,7 +13,7 @@ class MultiPlayerGame extends Component {
     date: "", 
     food: [], 
     points1: 0, 
-    player2: "player", 
+    player2: "player2", 
     snake2: [], 
     points2: 0, 
     game_over: false,
@@ -52,10 +52,10 @@ if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 else  this.setState({movement: checkKey(e.keyCode, movement)})
 }
   render() {
-    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active} = this.state;
+    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2} = this.state;
     return (
       <div onKeyDown={this.handleKeyDown}>
-   <MultiPlayerStats />
+   <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2}/>
   {   isLoading ? 
   <p>Loading...</p> :
    countDown > 0? 

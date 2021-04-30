@@ -76,3 +76,12 @@ body.forEach((piece)=>{
 })
   return snakeEatItself;
 }
+export const  create = ()=>{
+      const arr = [];
+      let num = 1;
+    while (num <= 900){
+        arr.push(" ")
+         num++;
+    }
+    return arr;
+   }

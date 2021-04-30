@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {/* Router,*/ Link } from "@reach/router";
 import SinglePlayerGame from "./singlePlayer/SinglePlayerGame";
+import {create} from '../utils/utils'
 
 class SinglePlayer extends Component {
   state= {
@@ -8,15 +9,7 @@ class SinglePlayer extends Component {
      gameOn: false, 
      ready: false
     }
- create = ()=>{
-      const arr = [];
-      let num = 1;
-    while (num <= 900){
-        arr.push(" ")
-         num++;
-    }
-    return arr;
-   }
+
   handleChange=(changeEvent)=>{
      const {value} = changeEvent.target;
      
@@ -39,7 +32,7 @@ this.setState({gameOn: true});
      <button onClick={this.start} disabled={!this.state.ready}>Submit</button>
        
       </div>
-     : <SinglePlayerGame userName={this.state.player1} pixelCount={this.create()}/>
+     : <SinglePlayerGame userName={this.state.player1} pixelCount={create()}/>
   }
        <Link to="/">Home</Link>
       </div>

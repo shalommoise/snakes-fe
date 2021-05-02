@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../../utils/api';
 import {count} from '../../utils/countdown';
-import {create, moveSnake, checkKey, isPixelCoordinate, isSnakeEatingItself} from '../../utils/utils'
+import {create, moveSnake, checkKey, isPixelCoordinate, changeUri ,isSnakeEatingItself} from '../../utils/utils'
 import GamePixel from "../GamePixel";
 import MultiPlayerStats from './MultiPlayerStats'
 import {Link} from '@reach/router'
@@ -76,6 +76,8 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
   <p>Loading...</p> :
    countDown > 0? 
      <div>
+       
+             <p>copy '{changeUri(window.location.href)}'</p>  <button onClick={()=>console.log(window.location.href)}>click</button>
         <button onClick={()=>{this.setState({start: true})}}><p>Click when you are ready</p></button>
        <div className="game">
      {pixelCount.map((pixel, index)=>{

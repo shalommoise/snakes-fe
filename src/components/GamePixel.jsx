@@ -22,21 +22,23 @@ const body = splitSnake(snake)[1];
 if(isPixelCoordinate(head, pixel)) className = 'head';
 if(isPixelCoordinate(food, pixel)) className = 'food';
 
-const head2 = splitSnake(snake)[0];
-const body2 = splitSnake(snake)[1];
-if(isPixelCoordinate(head2, pixel)) className = 'head2';
+
 
 let count = 0; 
 body.forEach((piece)=>{
   if(isPixelCoordinate(piece, pixel)) count++
 });
 if(count) className = 'body';
-  
+if(snake2) {
+const head2 = splitSnake(snake2)[0];
+const body2 = splitSnake(snake2)[1];
+if(isPixelCoordinate(head2, pixel)) className = 'head2';
 let count2 = 0; 
 body2.forEach((piece)=>{
   if(isPixelCoordinate(piece, pixel)) count2++
 });
 if(count2) className = 'body2';
+}
 }
   return className;
 }

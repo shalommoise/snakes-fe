@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../../utils/api';
 import {count} from '../../utils/countdown';
-import {create, checkKey} from '../../utils/utils'
+import {create, moveSnake, checkKey, isPixelCoordinate, isSnakeEatingItself} from '../../utils/utils'
 import GamePixel from "../GamePixel";
 import MultiPlayerStats from './MultiPlayerStats'
 import {Link} from '@reach/router'
@@ -20,6 +20,7 @@ class MultiPlayerGame extends Component {
     isLoading: true,
    pixelCount: [],
     countDown: 4,
+    movement: "right",
     size: 30
   }
   
@@ -27,8 +28,11 @@ componentDidMount(){
 this.setState({pixelCount: create()})
   api.getSingleGame(this.props.id).then((game)=>{
    const {player1, snake1, active, date, food, player2, snake2} = game
- this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false})
+ this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: this.props.player})
   })
+        setInterval(() => {
+   this.snakeMoving();
+}, 100);
 }
  componentDidUpdate(prevProps, prevState) {
   const {countDown, start,_id,snake1}= this.state
@@ -51,11 +55,20 @@ handleKeyDown= (e)=> {
 if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 else  this.setState({movement: checkKey(e.keyCode, movement)})
 }
+snakeMoving = ()=>{
+    const {snake1, active , movement, food, _id} = this.state;  
+const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
+    this.setState({snake1: newSnake});
+
+    if(isPixelCoordinate(snake1[0], food)) api.editGame(_id, snake1, food)
+    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1})))
+
+     }
   render() {
-    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2} = this.state;
+    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer} = this.state;
     return (
       <div onKeyDown={this.handleKeyDown}>
-   <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2}/>
+   <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer}/>
   {   isLoading ? 
   <p>Loading...</p> :
    countDown > 0? 

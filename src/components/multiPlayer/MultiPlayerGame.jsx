@@ -7,6 +7,7 @@ import MultiPlayerStats from './MultiPlayerStats'
 import {Link} from '@reach/router'
 class MultiPlayerGame extends Component {
   state = {
+    _id: this.props.id,
     player1: "player",
     snake1: [] ,
     active: false, 
@@ -31,11 +32,11 @@ this.setState({pixelCount: create()})
  this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: this.props.player})
   })
         setInterval(() => {
-   this.snakeMoving();
+   this.snakeMoving(this.props.player);
 }, 100);
 }
  componentDidUpdate(prevProps, prevState) {
-  const {countDown, start,_id,snake1}= this.state
+  const {countDown, start}= this.state
   if(countDown && start){
     
    setTimeout(() => {
@@ -55,13 +56,15 @@ handleKeyDown= (e)=> {
 if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 else  this.setState({movement: checkKey(e.keyCode, movement)})
 }
-snakeMoving = ()=>{
-    const {snake1, active , movement, food, _id} = this.state;  
-const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
-    this.setState({snake1: newSnake});
-
-    if(isPixelCoordinate(snake1[0], food)) api.editGame(_id, snake1, food)
-    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1})))
+snakeMoving = (n)=>{
+    const {snake1, active , movement, food, _id, snake2} = this.state;
+    const currentSnake = 1 === + n ? snake1 : snake2;
+   
+const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], food) ? moveSnake(currentSnake, movement, true) : moveSnake(currentSnake, movement, false);
+    this.setState({[`snake${n}`]: newSnake});
+       const other = +n === 1 ? 'snake2' : 'snake1'
+     api.editGame(_id, snake1, food, snake2)
+    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points1: game.points1, points2: game.points2, [other]: game[other]})))
 
      }
   render() {

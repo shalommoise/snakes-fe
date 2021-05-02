@@ -20,9 +20,9 @@ return axiosInstance
 }
 
 
-export const editGame =(id, snake1, food)=>{
+export const editGame =(id, snake1, food, snake2)=>{
   return axiosInstance
-.patch(`games/${id}`, {snake1, food}).then(({data: {game}})=>{
+.patch(`games/${id}`, {snake1, food, snake2}).then(({data: {game}})=>{
   return game;
 }).catch((err)=>err)
 }

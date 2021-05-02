@@ -67,3 +67,6 @@
   background-color: aliceblue;
   color: blueviolet;
 }
+.currentPlayer {
+  background-color: yellow;
+}

@@ -85,3 +85,8 @@ export const  create = ()=>{
     }
     return arr;
    }
+
+   export const isCurrentPlayer = (player, currentPlayer) => {
+  
+     return player === + currentPlayer ? "currentPlayer" : "otherPlayer"; 
+   }

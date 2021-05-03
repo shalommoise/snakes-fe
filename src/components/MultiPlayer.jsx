@@ -1,6 +1,7 @@
 import React from 'react';
 import {  Link } from "@reach/router";
-import OwnGameStart from './multiPlayer/OwnGameStart'
+import OwnGameStart from './multiPlayer/OwnGameStart';
+import EnterCode from './multiPlayer/EnterCode';
 
 
 const MultiPlayer = () => {
@@ -13,7 +14,7 @@ const MultiPlayer = () => {
           <OwnGameStart />
         </div>
    <div className="Copy_code_from_friend">
-     Enter Code from friend
+    <EnterCode />
 
     </div>
 

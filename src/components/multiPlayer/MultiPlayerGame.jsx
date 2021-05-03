@@ -80,7 +80,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
       
      }
   render() {
-    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
+    const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
     
     return (
      
@@ -91,7 +91,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
    countDown > 0? 
      <div>
        {!copied && 
-             <CopyUrl url={changeUrl(window.location.href)}/> }
+             <CopyUrl url={_id}/> }
         {/* <button onClick={()=>{this.setState({start: true})}}><p>Click when you are ready</p></button> */}
        <div className="game">
      {pixelCount.map((pixel, index)=>{

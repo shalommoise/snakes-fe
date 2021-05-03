@@ -57,6 +57,13 @@
 .Copy_code_from_friend {
   margin-top: 20px;
   margin-bottom: 20px;
+  background-color: blueviolet;
+  color: aliceblue;
+  cursor: pointer;
+}
+.Copy_code_from_friend:hover {
+  background-color: aliceblue;
+  color: blueviolet;
 }
 .icon {
   background-color: blueviolet;

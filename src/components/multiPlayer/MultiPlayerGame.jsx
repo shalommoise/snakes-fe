@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../../utils/api';
 import {count} from '../../utils/countdown';
-import {create, moveSnake, checkKey, isPixelCoordinate, changeUrl ,isSnakeEatingItself} from '../../utils/utils'
+import {create, moveSnake, checkKey, isPixelCoordinate ,isSnakeEatingItself} from '../../utils/utils'
 import GamePixel from "../GamePixel";
 import MultiPlayerStats from './MultiPlayerStats';
 import {Link} from '@reach/router';
@@ -79,12 +79,12 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
          setInterval(() => {
            const currentSnakeName = `snake${n}`;
            const otherSnake = +n === 1 ? 'snake2' : 'snake1';
-           const {_id, food} =this.state;
+           const {_id} =this.state;
        
-           api.editGame(_id, this.state[currentSnakeName], food, n)
-    .then(()=> api.getSingleGame(_id).then((game)=>{
+           api.editSnake(_id, this.state[currentSnakeName], n);
+     api.getSingleGame(_id).then((game)=>{
     
-      this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake], active: game.active})}))
+      this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake], active: game.active})})
 
 }, 1000);
       

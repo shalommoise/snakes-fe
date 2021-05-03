@@ -23,22 +23,27 @@ class MultiPlayerGame extends Component {
     isLoading: true,
    pixelCount: [],
     countDown: 4,
-    movement: "right",
+    movement: "up",
     size: 30,
     copied: false
   }
   
 componentDidMount(){
+  
 this.setState({pixelCount: create()})
   api.getSingleGame(this.props.id).then((game)=>{
    const {player1, snake1, active, date, food, player2, snake2} = game
  this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: this.props.player})
+  if ( + this.props.player === 1) setInterval(() => {
+     api.getSingleGame(this.props.id).then((game)=>this.setState({player2: game.player2}))
+  }, 1000);
   })
         setInterval(() => {
    this.snakeMoving(this.props.player);
-}, 100);
- this.prepareGame()
+}, 1000);
+ this.prepareGame(this.props.player);
 }
+
  componentDidUpdate(prevProps, prevState) {
   const {countDown, start, player2}= this.state;
   if(player2 !== prevState.player2) this.setState({start: true})
@@ -67,16 +72,17 @@ snakeMoving = (n)=>{
    
 const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], food) ? moveSnake(currentSnake, movement, true) : moveSnake(currentSnake, movement, false);
     this.setState({[`snake${n}`]: newSnake});
-       const other = +n === 1 ? 'snake2' : 'snake1'
-     api.editGame(_id, snake1, food, snake2)
-    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points1: game.points1, points2: game.points2, [other]: game[other]})))
-
-     }
-     prepareGame =()=>{
+     
+}
+     prepareGame =(n)=>{
          setInterval(() => {
-   api.getSingleGame(this.state._id).then((game)=>    
-    this.setState({player2: game.player2, active: game.active}))
-}, 3000);
+           const currentSnakeName = `snake${n}`;
+           const otherSnake = +n === 1 ? 'snake2' : 'snake1';
+           const {_id, food, snake1, snake2} =this.state;
+           api.editGame(_id, [currentSnakeName], food, n)
+    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake]})))
+
+}, 1000);
       
      }
   render() {

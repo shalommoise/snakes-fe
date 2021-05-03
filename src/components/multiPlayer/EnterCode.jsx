@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {  Link } from "@reach/router";
+import * as api from '../../utils/api' 
 class EnterCode extends Component {
   state = {
     clicked: false,
@@ -8,6 +9,10 @@ class EnterCode extends Component {
   handleChange=(event)=>{
     const {name, value} = event.target
     this.setState({[name]: value})
+  }
+  sendName =()=>{
+    const {game_id, userName}= this.state
+api.enterPlayer2(game_id, userName)
   }
   render() {
     const {game_id, clicked, userName} = this.state
@@ -20,7 +25,7 @@ class EnterCode extends Component {
       <label htmlFor="game_id"></label>
           <input type="text" id="game_id" name="game_id" placeholder="Past the code here" onChange={this.handleChange}/>
      <br/>
-  {userName && game_id && <Link to={`/multi-player/${game_id}/2`} onClick={this.makeGame} >Submit</Link>} 
+  {userName && game_id &&  <button onClick={this.sendName}> <Link to={`/multi-player/${game_id}/2`}> Submit</Link> </button>} 
         </div> :   <span onClick={()=>this.setState({clicked: true})}>Enter code from Friend</span>}
       </div>
     );

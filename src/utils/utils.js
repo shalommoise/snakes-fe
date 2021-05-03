@@ -97,7 +97,8 @@ export const  create = ()=>{
     if(typeof snakeA === "string" || typeof snakeB === "string") return false;
     let isOverlap = false;
     const headA = snakeA.shift();
-    const headB = snakeB.shift();
+    
+    snakeB.shift();
     snakeB.forEach((part)=>{if(isPixelCoordinate(headA,part)) isOverlap = true})
     return isOverlap;
 

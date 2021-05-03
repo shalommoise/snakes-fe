@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import * as api from '../../utils/api';
 import {count} from '../../utils/countdown';
-import {create, moveSnake, checkKey, isPixelCoordinate, changeUri ,isSnakeEatingItself} from '../../utils/utils'
+import {create, moveSnake, checkKey, isPixelCoordinate, changeUrl ,isSnakeEatingItself} from '../../utils/utils'
 import GamePixel from "../GamePixel";
-import MultiPlayerStats from './MultiPlayerStats'
-import {Link} from '@reach/router'
+import MultiPlayerStats from './MultiPlayerStats';
+import {Link} from '@reach/router';
+import CopyUrl from './CopyUrl';
+
 class MultiPlayerGame extends Component {
   state = {
     _id: this.props.id,
@@ -22,7 +24,8 @@ class MultiPlayerGame extends Component {
    pixelCount: [],
     countDown: 4,
     movement: "right",
-    size: 30
+    size: 30,
+    copied: false
   }
   
 componentDidMount(){
@@ -34,9 +37,11 @@ this.setState({pixelCount: create()})
         setInterval(() => {
    this.snakeMoving(this.props.player);
 }, 100);
+ this.prepareGame()
 }
  componentDidUpdate(prevProps, prevState) {
-  const {countDown, start}= this.state
+  const {countDown, start, player2}= this.state;
+  if(player2 !== prevState.player2) this.setState({start: true})
   if(countDown && start){
     
    setTimeout(() => {
@@ -67,18 +72,27 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points1: game.points1, points2: game.points2, [other]: game[other]})))
 
      }
+     prepareGame =()=>{
+         setInterval(() => {
+   api.getSingleGame(this.state._id).then((game)=>    
+    this.setState({player2: game.player2, active: game.active}))
+}, 3000);
+      
+     }
   render() {
-    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer} = this.state;
+    const {isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
+    
     return (
+     
       <div onKeyDown={this.handleKeyDown}>
    <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer}/>
   {   isLoading ? 
   <p>Loading...</p> :
    countDown > 0? 
      <div>
-       
-             <p>copy '{changeUri(window.location.href)}'</p>  <button onClick={()=>console.log(window.location.href)}>click</button>
-        <button onClick={()=>{this.setState({start: true})}}><p>Click when you are ready</p></button>
+       {!copied && 
+             <CopyUrl url={changeUrl(window.location.href)}/> }
+        {/* <button onClick={()=>{this.setState({start: true})}}><p>Click when you are ready</p></button> */}
        <div className="game">
      {pixelCount.map((pixel, index)=>{
          return  <GamePixel key={index} index={index} size={size} number={count[countDown]}/>

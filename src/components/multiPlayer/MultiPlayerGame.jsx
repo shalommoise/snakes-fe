@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../../utils/api';
 import {count} from '../../utils/countdown';
-import {create, moveSnake, checkKey, isPixelCoordinate ,isSnakeEatingItself} from '../../utils/utils'
+import {create, moveSnake, checkKey, isPixelCoordinate ,isSnakeEatingItself, overlap} from '../../utils/utils'
 import GamePixel from "../GamePixel";
 import MultiPlayerStats from './MultiPlayerStats';
 import {Link} from '@reach/router';
@@ -75,13 +75,20 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
 }
      prepareGame =(n)=>{
          setInterval(() => {
-           const currentSnakeName = `snake${n}`;
-           const otherSnake = +n === 1 ? 'snake2' : 'snake1';
-           const {_id} =this.state;
-           api.editSnake(_id, this.state[currentSnakeName], n);
+          
+           const {_id, currentPlayer} =this.state;
+             
+       const currentSnake =  this.state[`snake${currentPlayer}`];
+        const otherPlayer = + currentPlayer === 1 ? 2 :1;
+    
+    const differentSnake = this.state[`snake${otherPlayer}`];
+    if(!overlap(differentSnake, currentSnake))
+     api.editSnake(_id, currentSnake, n);
      api.getSingleGame(_id).then((game)=>{
     
-      this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake], active: game.active, player2: game.player2})})
+      this.setState({food: game.food, points1: game.points1, points2: game.points2, [`snake${otherPlayer}`]: game[`snake${otherPlayer}`], active: game.active, player2: game.player2})})
+    
+      
 
 }, 1000);
       
@@ -90,10 +97,11 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
        const {active, _id} = this.state;
        const opposite = !active;
        api.pauseOrPlay(_id, opposite).then(()=>{
-       this.setState({active: opposite})
+       this.setState({active: opposite});
+        
        })
-     
      }
+    
   render() {
     const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
     
@@ -114,7 +122,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     </div>
       </div> :
     <div>
-    <button onClick={this.pauseGame}>{active ? <p>Pause</p> : <p>Play</p>}</button> 
+     <button onClick={this.pauseGame}>{active ? <p>Pause</p> : <p>Play</p>}</button> 
      <div className="game">
         {pixelCount.map((pixel, index)=>{
           return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food} snake2={snake2}/>

@@ -91,4 +91,14 @@ export const  create = ()=>{
      return player === + currentPlayer ? "currentPlayer" : "otherPlayer"; 
    }
 
-  
+  export const overlap =(snakeA, snakeB)=>{
+    if(!snakeA || !snakeB) return false;
+    if(!snakeA.length || !snakeB.length) return false;
+    if(typeof snakeA === "string" || typeof snakeB === "string") return false;
+    let isOverlap = false;
+    const headA = snakeA.shift();
+    const headB = snakeB.shift();
+    snakeB.forEach((part)=>{if(isPixelCoordinate(headA,part)) isOverlap = true})
+    return isOverlap;
+
+  }

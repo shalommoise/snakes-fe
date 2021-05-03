@@ -41,3 +41,10 @@ export const enterPlayer2 =(id, player2)=>{
 }).catch((err)=>err)
 
 }
+
+export const pauseOrPlay =(id, active) =>{
+   return axiosInstance
+.patch(`games/${id}`, {active}).then(({data: {game}})=>{
+  return game;
+}).catch((err)=>err)
+}

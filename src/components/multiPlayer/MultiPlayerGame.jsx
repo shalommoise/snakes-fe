@@ -45,14 +45,15 @@ this.setState({pixelCount: create()})
 }
 
  componentDidUpdate(prevProps, prevState) {
-  const {countDown, start, player2}= this.state;
+  const {countDown, start, player2, _id}= this.state;
   if(player2 !== prevState.player2) this.setState({start: true})
   if(countDown && start){
     
    setTimeout(() => {
      this.countGame(countDown) 
     }, 1000);
-} else if(countDown !==prevState.countDown) this.setState({active: true})
+} else if(countDown !==prevState.countDown)  api.pauseOrPlay(_id, true).then(()=>
+       this.setState({active: true}))
  }
 
  countGame =(number)=>{
@@ -78,12 +79,23 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
          setInterval(() => {
            const currentSnakeName = `snake${n}`;
            const otherSnake = +n === 1 ? 'snake2' : 'snake1';
-           const {_id, food, snake1, snake2} =this.state;
-           api.editGame(_id, [currentSnakeName], food, n)
-    .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake]})))
+           const {_id, food} =this.state;
+       
+           api.editGame(_id, this.state[currentSnakeName], food, n)
+    .then(()=> api.getSingleGame(_id).then((game)=>{
+    
+      this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake], active: game.active})}))
 
 }, 1000);
       
+     }
+     pauseGame = ()=>{
+       const {active, _id} = this.state;
+       const opposite = !active;
+       api.pauseOrPlay(_id, opposite).then(()=>{
+       this.setState({active: opposite})
+       })
+     
      }
   render() {
     const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
@@ -106,7 +118,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     </div>
       </div> :
     <div>
-    <button onClick={()=>{this.setState({active: !active})}}>{active ? <p>Pause</p> : <p>Play</p>}</button> 
+    <button onClick={this.pauseGame}>{active ? <p>Pause</p> : <p>Play</p>}</button> 
      <div className="game">
         {pixelCount.map((pixel, index)=>{
           return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food} snake2={snake2}/>

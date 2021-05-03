@@ -29,23 +29,20 @@ class MultiPlayerGame extends Component {
   }
   
 componentDidMount(){
-  
+  const {id, player}= this.props
 this.setState({pixelCount: create()})
-  api.getSingleGame(this.props.id).then((game)=>{
-   const {player1, snake1, active, date, food, player2, snake2} = game
- this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: this.props.player})
-  if ( + this.props.player === 1) setInterval(() => {
-     api.getSingleGame(this.props.id).then((game)=>this.setState({player2: game.player2}))
-  }, 1000);
+  api.getSingleGame(id).then((game)=>{
+   const {player1, snake1, active, date, food, player2, snake2, game_over} = game
+ this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: player, game_over})
   })
         setInterval(() => {
-   this.snakeMoving(this.props.player);
+   this.snakeMoving(player);
 }, 1000);
- this.prepareGame(this.props.player);
+ this.prepareGame(player);
 }
 
  componentDidUpdate(prevProps, prevState) {
-  const {countDown, start, player2, _id}= this.state;
+  const {countDown, start, player2, _id,currentPlayer}= this.state;
   if(player2 !== prevState.player2) this.setState({start: true})
   if(countDown && start){
     
@@ -54,6 +51,7 @@ this.setState({pixelCount: create()})
     }, 1000);
 } else if(countDown !==prevState.countDown)  api.pauseOrPlay(_id, true).then(()=>
        this.setState({active: true}))
+  if(isSnakeEatingItself(this.state[`snake${currentPlayer}`])) api.editSnake(_id,[], currentPlayer).then((game)=>this.setState({[`snake${currentPlayer}`]: game[`snake${currentPlayer}`]}))
  }
 
  countGame =(number)=>{
@@ -68,7 +66,7 @@ if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
 else  this.setState({movement: checkKey(e.keyCode, movement)})
 }
 snakeMoving = (n)=>{
-    const {snake1, active , movement, food, _id, snake2} = this.state;
+    const {snake1, active , movement, food, snake2} = this.state;
     const currentSnake = 1 === + n ? snake1 : snake2;
    
 const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], food) ? moveSnake(currentSnake, movement, true) : moveSnake(currentSnake, movement, false);
@@ -80,11 +78,10 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
            const currentSnakeName = `snake${n}`;
            const otherSnake = +n === 1 ? 'snake2' : 'snake1';
            const {_id} =this.state;
-       
            api.editSnake(_id, this.state[currentSnakeName], n);
      api.getSingleGame(_id).then((game)=>{
     
-      this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake], active: game.active})})
+      this.setState({food: game.food, points1: game.points1, points2: game.points2, [otherSnake]: game[otherSnake], active: game.active, player2: game.player2})})
 
 }, 1000);
       
@@ -110,7 +107,6 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
      <div>
        {!copied && 
              <CopyUrl url={_id}/> }
-        {/* <button onClick={()=>{this.setState({start: true})}}><p>Click when you are ready</p></button> */}
        <div className="game">
      {pixelCount.map((pixel, index)=>{
          return  <GamePixel key={index} index={index} size={size} number={count[countDown]}/>

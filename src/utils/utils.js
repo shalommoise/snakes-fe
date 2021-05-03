@@ -91,7 +91,7 @@ export const  create = ()=>{
      return player === + currentPlayer ? "currentPlayer" : "otherPlayer"; 
    }
 
-   export const changeUri = (url) =>{
+   export const changeUrl = (url) =>{
 const arr = url.split('');
 const n = arr.pop();
 const newNumber = +n=== 1 ? 2: 1;

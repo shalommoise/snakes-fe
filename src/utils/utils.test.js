@@ -98,7 +98,7 @@ expect(isSnakeEatingItself(snake)).toBe(true)
   })
 })
 
-describe.only("overlap", ()=>{
+describe("overlap", ()=>{
   const {overlap} = utils;
   test("snakes are not near eachother return false", ()=>{
     const snakeA = [[5,14],[5,15],[4,15]];
@@ -116,5 +116,12 @@ describe.only("overlap", ()=>{
      const snakeA = [[11,15],[12,15],[13,15]];
     const snakeB = [[11,16],[11,15],[11,14]];
      expect(overlap(snakeA, snakeB)).toBe(true);
+  })
+  test("does not mutate array", ()=>{
+      const snakeA = [[11,15],[12,15],[13,15]];
+    const snakeB = [[11,16],[11,15],[11,14]];
+    overlap(snakeA, snakeB);
+    expect(snakeA).toEqual([[11,15],[12,15],[13,15]]);
+    expect(snakeB).toEqual([[11,16],[11,15],[11,14]])
   })
 })

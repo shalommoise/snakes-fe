@@ -96,10 +96,12 @@ export const  create = ()=>{
     if(!snakeA.length || !snakeB.length) return false;
     if(typeof snakeA === "string" || typeof snakeB === "string") return false;
     let isOverlap = false;
-    const headA = snakeA.shift();
+    const copySnakeA = [...snakeA];
+    const copySnakeB = [...snakeB];
+    const headA = copySnakeA.shift();
     
-    snakeB.shift();
-    snakeB.forEach((part)=>{if(isPixelCoordinate(headA,part)) isOverlap = true})
+    copySnakeB.shift();
+    copySnakeB.forEach((part)=>{if(isPixelCoordinate(headA,part)) isOverlap = true})
     return isOverlap;
 
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GamePixel from "../GamePixel"
 import * as api from "../../utils/api";
-import {moveSnake, checkKey, isPixelCoordinate, isSnakeEatingItself} from "../../utils/utils";
+import {moveSnake, isPixelCoordinate, isSnakeEatingItself} from "../../utils/utils";
 import {count} from '../../utils/countdown';
 import SingleGameStats from './SingleGameStats'
 class SinglePlayerGame extends Component  {
@@ -16,7 +16,7 @@ class SinglePlayerGame extends Component  {
     food: [],
     snake1: [],
     size: 30,
-    movement: "right",
+    movement: this.props.movement,
     start: false,
     endGameMsg: "You hit the side"
   }
@@ -41,10 +41,12 @@ this.setState({active:true});
     this.startGame(userName, snake2, player2); 
         
         setInterval(() => {
+  
    this.snakeMoving();
 }, 100);
-        
+      
   }
+
   componentDidUpdate(prevProps, prevState) {
   const {countDown, start,_id,snake1}= this.state
   if(countDown && start){
@@ -60,16 +62,9 @@ if(!snake1.length && snake1 !== prevState.snake1) {
 }
   }
 
-
-handleKeyDown= (e)=> {
-  const {movement, active} = this.state; 
-if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
-else  this.setState({movement: checkKey(e.keyCode, movement)})
-}
-
-
   snakeMoving = ()=>{
-    const {snake1, active , movement, food, _id} = this.state;  
+    const {snake1, active , food, _id} = this.state;  
+    const {movement} = this.props;
 const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
     this.setState({snake1: newSnake});
 
@@ -82,8 +77,7 @@ const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSna
         const {userName,points, size, snake1, food, isLoading, pixelCount, active, countDown, game_over, endGameMsg} = this.state;
       
    return (
-       
-<div onKeyDown={this.handleKeyDown}>
+       <div>
    <SingleGameStats userName={userName} points={points}/>
   {   isLoading ? 
   <p>Loading...</p> :

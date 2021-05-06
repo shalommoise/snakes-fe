@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../../utils/api';
 import {count} from '../../utils/countdown';
-import {create, moveSnake, checkKey, isPixelCoordinate ,isSnakeEatingItself, overlap} from '../../utils/utils'
+import {create, moveSnake, isPixelCoordinate ,isSnakeEatingItself, overlap} from '../../utils/utils'
 import GamePixel from "../GamePixel";
 import MultiPlayerStats from './MultiPlayerStats';
 import {Link} from '@reach/router';
@@ -23,7 +23,7 @@ class MultiPlayerGame extends Component {
     isLoading: true,
    pixelCount: [],
     countDown: 4,
-    movement: "up",
+    movement: this.props.movement,
     size: 30,
     copied: false
   }
@@ -60,13 +60,10 @@ number ? this.setState({countDown: newNumber, isLoading: false}) :
 this.setState({active:true}); 
 } 
 
-handleKeyDown= (e)=> {
-  const {movement, active} = this.state; 
-if(e.keyCode === 32 || e.keyCode === 13) this.setState({ active: !active})
-else  this.setState({movement: checkKey(e.keyCode, movement)})
-}
+
 snakeMoving = (n)=>{
-    const {snake1, active , movement, food, snake2} = this.state;
+  const {movement} = this.props;
+    const {snake1, active , food, snake2} = this.state;
     const currentSnake = 1 === + n ? snake1 : snake2;
 
 const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], food) ? moveSnake(currentSnake, movement, true) : moveSnake(currentSnake, movement, false);
@@ -107,8 +104,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
     
     return (
-     
-      <div onKeyDown={this.handleKeyDown}>
+     <div>
    <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer}/>
   {   isLoading ? 
   <p>Loading...</p> :

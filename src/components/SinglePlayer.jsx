@@ -32,7 +32,7 @@ this.setState({gameOn: true});
      <button onClick={this.start} disabled={!this.state.ready}>Submit</button>
        
       </div>
-     : <SinglePlayerGame userName={this.state.player1} pixelCount={create()}/>
+     : <SinglePlayerGame movement={this.props.movement} userName={this.state.player1} pixelCount={create()}/>
   }
        <Link to="/">Home</Link>
       </div>

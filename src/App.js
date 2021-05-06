@@ -16,7 +16,7 @@ function App() {
 
      <Router>
 <Home path="/" />
-<SinglePlayer path="/single-player"/>
+<SinglePlayer path="/single-player"/>   
 <MultiPlayer path="/multi-player"/>
 <Instructions path="/instructions"/>
 <MultiPlayerGame path="/multi-player/:id/:player"/>

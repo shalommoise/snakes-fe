@@ -73,7 +73,7 @@ else  this.setState({movement: checkKey(e.keyCode, movement)})
 const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
     this.setState({snake1: newSnake});
 
-    if(isPixelCoordinate(snake1[0], food)) api.editGame(_id, snake1, food)
+    if(isPixelCoordinate(snake1[0], food)) api.editGame(_id, snake1, food, 1)
     .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1})))
 
      }

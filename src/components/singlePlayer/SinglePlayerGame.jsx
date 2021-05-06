@@ -53,7 +53,7 @@ this.setState({active:true});
     }, 1000);
 } else if(countDown !==prevState.countDown) this.setState({active: true})
 
-if(isSnakeEatingItself(snake1)) this.setState({snake1: [], endGameMsg: "You bit yor tail!"})
+if(isSnakeEatingItself(snake1)) this.setState({snake1: [], endGameMsg: "You bit your tail!"})
 if(!snake1.length && snake1 !== prevState.snake1) {
   api.editGame(_id, snake1);
   this.setState({game_over: true, active: false});

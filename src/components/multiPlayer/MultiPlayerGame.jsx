@@ -68,7 +68,7 @@ else  this.setState({movement: checkKey(e.keyCode, movement)})
 snakeMoving = (n)=>{
     const {snake1, active , movement, food, snake2} = this.state;
     const currentSnake = 1 === + n ? snake1 : snake2;
-   
+
 const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], food) ? moveSnake(currentSnake, movement, true) : moveSnake(currentSnake, movement, false);
     this.setState({[`snake${n}`]: newSnake});
      
@@ -82,11 +82,12 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
         const otherPlayer = + currentPlayer === 1 ? 2 :1;
     
     const differentSnake = this.state[`snake${otherPlayer}`];
-    if(!overlap(differentSnake, currentSnake))
-     api.editSnake(_id, currentSnake, n);
+    if(!overlap(differentSnake, currentSnake)) api.editSnake(_id, currentSnake, n);
      api.getSingleGame(_id).then((game)=>{
     
-      this.setState({food: game.food, points1: game.points1, points2: game.points2, [`snake${otherPlayer}`]: game[`snake${otherPlayer}`], active: game.active, player2: game.player2})})
+      this.setState({food: game.food, points1: game.points1, points2: game.points2, [`snake${otherPlayer}`]: game[`snake${otherPlayer}`], active: game.active, player2: game.player2})
+     if(overlap(differentSnake, currentSnake)) this.setState({[`snake${currentPlayer}`]: game[`snake${currentPlayer}`]})
+    })
     
       
 

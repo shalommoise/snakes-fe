@@ -35,9 +35,8 @@ export const moveSnake = (snake, direction, eat)=>{
  const [x,y] = strSnakeToNumSnake(oldHead);
  const newHead = [x + directions[direction].x, y + directions[direction].y];
   copySnake.unshift(newHead);
- !eat  && copySnake.pop();
-
-    return copySnake;
+  if(!eat) copySnake.pop();
+      return copySnake;
    }
 }
 export const checkKey = (keyCode, prevMove)=> {

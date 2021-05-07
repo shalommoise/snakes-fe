@@ -1,5 +1,5 @@
  export  const indexConverter = (size, index)=>{
-  if(!index && index !== 0 || !size) return [];
+  if((!index && index !== 0) || !size) return [];
   const newI = index + 1;
  const remiander = newI % size;
   const x = remiander ?  remiander : size;
@@ -25,10 +25,10 @@ export const moveSnake = (snake, direction, eat)=>{
  const copySnake = strSnakeToNumSnake(snake);
  const oldHead = copySnake[0];
 
- if (direction === 'down' && oldHead[1] === 30 ||
-     direction === 'up' && oldHead[1] === 1 ||
-     direction === 'left' && oldHead[0] === 1 ||
-     direction === 'right' && oldHead[0] === 30 
+ if ((direction === 'down' && oldHead[1] === 30) ||
+    (direction === 'up' && oldHead[1] === 1) ||
+     (direction === 'left' && oldHead[0] === 1 )||
+     (direction === 'right' && oldHead[0] === 30) 
     ) {
     return [];   
  } else {

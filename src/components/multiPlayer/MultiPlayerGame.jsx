@@ -37,7 +37,7 @@ this.setState({pixelCount: create()})
   })
         setInterval(() => {
    this.snakeMoving(player);
-}, 1000);
+}, 800);
  this.prepareGame(player);
 }
 
@@ -88,7 +88,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     
       
 
-}, 1000);
+}, 800);
       
      }
      pauseGame = ()=>{
@@ -124,8 +124,9 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
         {pixelCount.map((pixel, index)=>{
           return  <GamePixel key={index} index={index} size={size} snake={snake1} food={food} snake2={snake2}/>
            })}
-
     </div>
+    {!snake1.length && <p>{player1} is out</p>}
+    {!snake2.length && <p>{player2} is out</p>}
     </div>  }
     <Link to="/">Home</Link>
     </div>

@@ -32,8 +32,8 @@ componentDidMount(){
   const {id, player}= this.props
 this.setState({pixelCount: create()})
   api.getSingleGame(id).then((game)=>{
-   const {player1, snake1, active, date, food, player2, snake2, game_over} = game
- this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: player, game_over})
+   const {player1, snake1, active, date, food, player2, snake2, game_over, randomPlayerJoin} = game
+ this.setState({player1, snake1, active, date, food, player2, snake2, isLoading: false, currentPlayer: player, game_over, randomPlayerJoin})
   })
         setInterval(() => {
    this.snakeMoving(player);
@@ -99,19 +99,20 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
         
        })
      }
-    
+  
   render() {
-    const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied} = this.state;
+    const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied, randomPlayerJoin} = this.state;
     
     return (
      <div>
    <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer}/>
   {   isLoading ? 
   <p>Loading...</p> :
-   countDown > 0? 
+   countDown > 0?  
      <div>
        {!copied && 
-             <CopyUrl url={_id}/> }
+             <CopyUrl url={_id} randomPlayerJoin={randomPlayerJoin}/> }
+      
        <div className="game">
      {pixelCount.map((pixel, index)=>{
          return  <GamePixel key={index} index={index} size={size} number={count[countDown]}/>

@@ -55,3 +55,10 @@ export const pauseOrPlay =(id, active) =>{
   return game;
 }).catch((err)=>err)
 }
+
+export const isMultiPlayer = (id, randomPlayerJoin) =>{
+  return axiosInstance
+.patch(`games/${id}`, {randomPlayerJoin}).then(({data: {game}})=>{
+  return game;
+}).catch((err)=>err)
+}

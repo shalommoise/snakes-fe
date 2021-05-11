@@ -102,7 +102,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
   
   render() {
     const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied, randomPlayerJoin} = this.state;
-    
+    const {player} = this.props
     return (
      <div>
    <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer}/>
@@ -110,8 +110,8 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
   <p>Loading...</p> :
    countDown > 0?  
      <div>
-       {!copied && 
-             <CopyUrl url={_id} randomPlayerJoin={randomPlayerJoin}/> }
+       {(!copied && player ==='1' && countDown > 3) && 
+             <CopyUrl url={_id} randomPlayerJoin={randomPlayerJoin} /> }
       
        <div className="game">
      {pixelCount.map((pixel, index)=>{

@@ -8,16 +8,17 @@ class CopyUrl extends Component {
     
   };
   render() {
+    const {copied, value} = this.state
     return (
       <div>
-       
+        
 
-   
-
-        {this.state.copied ? <span style={{color: 'red'}}>Copied. Send to your friend</span> :      <CopyToClipboard text={this.state.value}
+        {copied ? <span style={{color: 'red'}}>Copied. Send to your friend</span> :      <CopyToClipboard text={value}
           onCopy={() => this.setState({copied: true})}>
-          <button>Copy to clipboard with button</button>
-        </CopyToClipboard>}
+          <button>Send code to a friend</button>
+        </CopyToClipboard>             
+        }
+      
       </div>
    
     );

@@ -1,26 +1,54 @@
 import React, { Component } from 'react';
 import {getLiveGames} from '../../utils/api'
 import {Link} from '@reach/router'
+import * as api from '../../utils/api' 
 class JoinRandomGame extends Component {
   state ={
     clicked: false,
     isLoading: true, 
-    liveGames: []
+    liveGames: [],
+    isName: false 
   };
   componentDidUpdate(prevProps, prevState){
-    if(prevState.clicked !== this.state.clicked)  {
+    if(prevState.isName !== this.state.isName)  {
    
       getLiveGames().then((liveGames)=>this.setState({liveGames, isLoading: false}))
       }
   }
+  handleChange =(event)=>{
+       const {name, value} = event.target
+        this.setState({[name]: value})
+  }
+  handleClick =()=>{
+this.setState({isName: true})
+  }
+
+  sendName =(event)=>{
+      const { userName}= this.state;
+      const {id} = event.target
+    
+      api.enterPlayer2(id, userName);
+  }
   render() {
-      const {clicked, isLoading, liveGames} = this.state;
+      const {clicked, isLoading, liveGames, isName, userName} = this.state;
     return (
     
       <div className="icon">
-        {!clicked ?<p onClick={()=>this.setState({clicked: !clicked})}> Join a random game </p>: isLoading ? <p>Loading... </p> : liveGames.map((game)=>{
-          return (<div id={game._id} key={game._id} className="playerList">
-          <Link to={`/multi-player/${game._id}/2`}>  <p>Play with {game.player1}</p> </Link>
+        {!clicked ?
+        <p onClick={()=>this.setState({clicked: !clicked})}> Join a random game </p> :
+         !isName  ?
+          <div> <label htmlFor="userName"></label>
+          <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/> <button onClick={this.handleClick} disabled={!userName}>Submit</button></div> : isLoading ? 
+          <p>Loading... </p> : 
+          liveGames.map((game)=>{
+          return (<div key={game._id} className="playerList">
+            <Link to={`/multi-player/${game._id}/2`}>
+        <button onClick={this.sendName} id={game._id}> 
+         
+             Play with {game.player1} 
+    
+             </button>
+                      </Link> 
           </div>)
         })}
       

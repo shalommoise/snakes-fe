@@ -2,7 +2,7 @@ import React from 'react';
 import {  Link } from "@reach/router";
 import OwnGameStart from './multiPlayer/OwnGameStart';
 import EnterCode from './multiPlayer/EnterCode';
-
+import JoinRandomGame from './multiPlayer/JoinRandomGame'
 
 const MultiPlayer = () => {
   return (
@@ -10,7 +10,7 @@ const MultiPlayer = () => {
          <h2>Multi-Player</h2>
         <Link to="/">Home</Link>
         <div className="multi-game_options">
-          <div className="icon">Join random Game</div>
+          <JoinRandomGame />
           <OwnGameStart />
         </div>
    <div className="Copy_code_from_friend">

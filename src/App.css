@@ -77,3 +77,12 @@
 .currentPlayer {
   background-color: yellow;
 }
+
+.playerList {
+  background-color: aliceblue;
+  color: blueviolet;
+}
+.playerList:hover {
+  background-color: blueviolet;
+  color: aliceblue;
+}

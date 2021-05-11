@@ -62,3 +62,9 @@ export const isMultiPlayer = (id, randomPlayerJoin) =>{
   return game;
 }).catch((err)=>err)
 }
+export const getLiveGames =()=>{
+   return axiosInstance
+  .get('games?live=true').then(({data: {games}})=>{
+  return games;
+}).catch((err)=>err)
+}

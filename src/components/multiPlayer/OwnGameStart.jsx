@@ -9,7 +9,8 @@ class OwnGameStart extends Component {
   makeGame = ()=>{
     api.changeNames(this.state._id, this.state.player1)
   }
-  componentDidMount(){
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.clicked !== this.state.clicked)
     api.postGame().then((game)=>{
       const {_id } = game; 
       this.setState({ _id})

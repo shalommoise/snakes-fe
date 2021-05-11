@@ -37,7 +37,7 @@ this.setState({pixelCount: create()})
   })
         setInterval(() => {
    this.snakeMoving(player);
-}, 800);
+}, 500);
  this.prepareGame(player);
 }
 
@@ -88,7 +88,7 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     
       
 
-}, 800);
+}, 500);
       
      }
      pauseGame = ()=>{

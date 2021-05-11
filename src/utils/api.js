@@ -43,7 +43,7 @@ export const changeNames =(id, player1, player2) =>{
 
 export const enterPlayer2 =(id, player2)=>{
    return axiosInstance
-.patch(`games/${id}`, {player2}).then(({data: {game}})=>{
+.patch(`games/${id}`, {player2, randomPlayerJoin: false}).then(({data: {game}})=>{
   return game;
 }).catch((err)=>err)
 

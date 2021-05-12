@@ -24,7 +24,8 @@ class MultiPlayerGame extends Component {
    pixelCount: [],
     countDown: 4,
     size: 30,
-    copied: false
+    copied: false,
+    i:0
   }
   
 componentDidMount(){
@@ -36,6 +37,7 @@ this.setState({pixelCount: create()})
   })
         setInterval(() => {
    this.snakeMoving(player);
+  
 }, 500);
  this.prepareGame(player);
 }
@@ -48,8 +50,13 @@ this.setState({pixelCount: create()})
    setTimeout(() => {
      this.countGame(countDown) 
     }, 1000);
-} else if(countDown !==prevState.countDown)  api.pauseOrPlay(_id, true).then(()=>
-       this.setState({active: true}))
+} else if(countDown !==prevState.countDown)  {
+  setInterval(() => {
+     let j = this.state.i +1;
+   this.setState({i: j})
+  }, 1000);
+  api.pauseOrPlay(_id, true).then(()=>
+       this.setState({active: true}))}
   if(isSnakeEatingItself(this.state[`snake${currentPlayer}`])) api.editSnake(_id,[], currentPlayer).then((game)=>this.setState({[`snake${currentPlayer}`]: game[`snake${currentPlayer}`]}))
  }
 
@@ -61,8 +68,9 @@ this.setState({active:true});
 
 
 snakeMoving = (n)=>{
-  const movement = this.props.movement ? this.props.movement: 'up';
-    const {snake1, active , food, snake2} = this.state;
+     const {snake1, active , food, snake2, i} = this.state;
+  const movement = i < 2 ?  'up': this.props.movement ? this.props.movement: 'up';
+
     const currentSnake = 1 === + n ? snake1 : snake2;
 
 const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], food) ? moveSnake(currentSnake, movement, true) : moveSnake(currentSnake, movement, false);
@@ -100,11 +108,11 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
      }
   
   render() {
-    const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied, randomPlayerJoin} = this.state;
+    const {_id,isLoading, pixelCount,countDown, size ,snake1, snake2, food, active,player1, player2, points1, points2, currentPlayer, copied, randomPlayerJoin, i} = this.state;
     const {player} = this.props
     return (
      <div>
-   <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer}/>
+   <MultiPlayerStats player1={player1} player2={player2} points1={points1} points2={points2} currentPlayer={currentPlayer} i={i}/>
   {   isLoading ? 
   <p>Loading...</p> :
    countDown > 0?  

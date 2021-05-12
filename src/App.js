@@ -11,8 +11,7 @@ import {checkKey} from './utils/utils'
 
 class App extends Component {
 state ={
-  keyCode: 0,
-  movement: "up"
+  movement: ""
 }
   
  handleKeyDown = (e)=> {

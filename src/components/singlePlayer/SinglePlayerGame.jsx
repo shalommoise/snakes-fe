@@ -16,7 +16,6 @@ class SinglePlayerGame extends Component  {
     food: [],
     snake1: [],
     size: 30,
-    movement: this.props.movement,
     start: false,
     endGameMsg: "You hit the side"
   }
@@ -37,7 +36,8 @@ number ? this.setState({countDown: newNumber, isLoading: false}) :
 this.setState({active:true}); 
 } 
   componentDidMount(){
-    const {userName,player2, snake2} = this.state
+    const {userName,player2, snake2} = this.state;
+   
     this.startGame(userName, snake2, player2); 
         
         setInterval(() => {
@@ -55,7 +55,7 @@ this.setState({active:true});
     }, 1000);
 } else if(countDown !==prevState.countDown) this.setState({active: true})
 
-// if(isSnakeEatingItself(snake1)) this.setState({snake1: [], endGameMsg: "You bit your tail!"})
+
 if(!snake1.length && snake1 !== prevState.snake1) {
   api.editGame(_id, snake1);
   this.setState({game_over: true, active: false});
@@ -64,7 +64,7 @@ if(!snake1.length && snake1 !== prevState.snake1) {
 
   snakeMoving = ()=>{
     const {snake1, active , food, _id} = this.state;  
-    const {movement} = this.props;
+    const movement = this.props.movement ? this.props.movement: 'right';
 const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSnake(snake1, movement, true) : moveSnake(snake1, movement, false);
     this.setState({snake1: newSnake});
 

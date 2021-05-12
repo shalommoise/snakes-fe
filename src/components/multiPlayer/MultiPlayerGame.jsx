@@ -23,7 +23,6 @@ class MultiPlayerGame extends Component {
     isLoading: true,
    pixelCount: [],
     countDown: 4,
-    movement: this.props.movement,
     size: 30,
     copied: false
   }
@@ -62,7 +61,7 @@ this.setState({active:true});
 
 
 snakeMoving = (n)=>{
-  const {movement} = this.props;
+  const movement = this.props.movement ? this.props.movement: 'up';
     const {snake1, active , food, snake2} = this.state;
     const currentSnake = 1 === + n ? snake1 : snake2;
 

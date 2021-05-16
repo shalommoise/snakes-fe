@@ -37,9 +37,14 @@ this.setState({pixelCount: create()})
   })
         setInterval(() => {
    this.snakeMoving(player);
-  
+ 
 }, 500);
  this.prepareGame(player);
+  setInterval(() => {
+const {i, active} = this.state;
+let j =active ? i + 1:i;
+this.setState({i:j})
+  }, 1000);
 }
 
  componentDidUpdate(prevProps, prevState) {
@@ -51,10 +56,7 @@ this.setState({pixelCount: create()})
      this.countGame(countDown) 
     }, 1000);
 } else if(countDown !==prevState.countDown)  {
-  setInterval(() => {
-     let j = this.state.i +1;
-   this.setState({i: j})
-  }, 1000);
+ 
   api.pauseOrPlay(_id, true).then(()=>
        this.setState({active: true}))}
   if(isSnakeEatingItself(this.state[`snake${currentPlayer}`])) api.editSnake(_id,[], currentPlayer).then((game)=>this.setState({[`snake${currentPlayer}`]: game[`snake${currentPlayer}`]}))

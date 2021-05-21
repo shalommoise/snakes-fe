@@ -138,7 +138,8 @@ const newSnake = !active ? currentSnake : isPixelCoordinate(currentSnake[0], foo
     {!snake1.length && <p>{player1} is out</p>}
     {!snake2.length && <p>{player2} is out</p>}
     </div>  }
-    <Link to="/">Home</Link>
+    <br />
+    <Link  className="Links" to="/">Home</Link>
     </div>
     );
   }

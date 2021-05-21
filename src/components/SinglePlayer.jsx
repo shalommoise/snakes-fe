@@ -29,12 +29,14 @@ this.setState({gameOn: true});
           <label htmlFor="userName"></label>
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/>
      <br/>
+     <br />
      <button onClick={this.start} disabled={!this.state.ready}>Submit</button>
        
       </div>
      : <SinglePlayerGame movement={this.props.movement} userName={this.state.player1} pixelCount={create()}/>
   }
-       <Link to="/">Home</Link>
+  <br />
+       <Link className="Links" to="/">Home</Link>
       </div>
     );
   }

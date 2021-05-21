@@ -28,12 +28,13 @@ const {clicked, _id} = this.state
     
     <div >
         {!clicked ?  
-         <div className="icon" onClick={()=>this.setState({clicked: true})}>Start your own Game</div> :
+         <div className="Links" onClick={()=>this.setState({clicked: true})}>Start your own Game</div> :
         <div>
           <label htmlFor="userName"></label>
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/>
+     <br/>   
      <br/>
-  <Link to={`/multi-player/${_id}/1`} onClick={this.makeGame} disabled={!this.state.ready}>Submit</Link> 
+  <Link className="Links" to={`/multi-player/${_id}/1`} onClick={this.makeGame} disabled={!this.state.ready}>Submit</Link> 
         </div>
        
          }  

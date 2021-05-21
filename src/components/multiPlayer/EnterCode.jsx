@@ -25,8 +25,8 @@ api.enterPlayer2(game_id, userName)
       <label htmlFor="game_id"></label>
           <input type="text" id="game_id" name="game_id" placeholder="Past the code here" onChange={this.handleChange}/>
      <br/>
-  {userName && game_id &&  <button onClick={this.sendName}> <Link to={`/multi-player/${game_id}/2`}> Submit</Link> </button>} 
-        </div> :   <span onClick={()=>this.setState({clicked: true})}>Enter code from Friend</span>}
+  {userName && game_id &&  <button onClick={this.sendName}> <Link className="Links" to={`/multi-player/${game_id}/2`}> Submit</Link> </button>} 
+        </div> :   <div className="Links" onClick={()=>this.setState({clicked: true})}>Enter code from Friend</div>}
       </div>
     );
   }

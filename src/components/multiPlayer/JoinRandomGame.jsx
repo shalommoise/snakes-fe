@@ -33,7 +33,7 @@ this.setState({isName: true})
       const {clicked, isLoading, liveGames, isName, userName} = this.state;
     return (
     
-      <div className="icon">
+      <div className="Links">
         {!clicked ?
         <p onClick={()=>this.setState({clicked: !clicked})}> Join a random game </p> :
          !isName  ?
@@ -42,7 +42,7 @@ this.setState({isName: true})
           <p>Loading... </p> : 
           liveGames.map((game)=>{
           return (<div key={game._id} className="playerList">
-            <Link to={`/multi-player/${game._id}/2`}>
+            <Link className="Links" to={`/multi-player/${game._id}/2`}>
         <button onClick={this.sendName} id={game._id}> 
          
              Play with {game.player1} 

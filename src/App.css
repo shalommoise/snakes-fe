@@ -50,31 +50,13 @@
 .multi-game_options {
   display: flex;
   justify-content: center;
+  padding: 10px;
 }
 
-.multi-game_options > div {
+.multi-game_options div {
   margin: 10px;
 }
-.Copy_code_from_friend {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: blueviolet;
-  color: aliceblue;
-  cursor: pointer;
-}
-.Copy_code_from_friend:hover {
-  background-color: aliceblue;
-  color: blueviolet;
-}
-.icon {
-  background-color: blueviolet;
-  color: aliceblue;
-  cursor: pointer;
-}
-.icon:hover {
-  background-color: aliceblue;
-  color: blueviolet;
-}
+
 .currentPlayer {
   background-color: yellow;
 }
@@ -96,4 +78,16 @@ ul {
 }
 .how_to_play {
   text-align: left;
+}
+.Links,
+button {
+  background-color: lightblue;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 25px;
+}
+.Links:hover,
+button:hover {
+  background-color: blueviolet;
+  color: white;
 }

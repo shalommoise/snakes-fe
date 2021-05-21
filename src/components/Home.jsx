@@ -4,12 +4,12 @@ const Home = () => {
   return (
     <div  className="frame">
       <h2>Home</h2>
-
- <Link to="/single-player">Single-Player</Link>
- <br/>
-  <Link to="/multi-player">Multi-Player</Link>
-  <br/>
-   <Link to="/instructions">Instructions</Link>
+<div  className="instruction_selection">
+     
+      <Link className="Links" to="/single-player">Single-Player</Link>
+      <Link className="Links" to="/multi-player">Multi-Player</Link>
+     <Link className="Links" to="/instructions">Instructions</Link>
+    </div>
     </div>
   );
 };

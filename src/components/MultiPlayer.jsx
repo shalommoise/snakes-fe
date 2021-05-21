@@ -8,15 +8,16 @@ const MultiPlayer = () => {
   return (
       <div  className="frame">
          <h2>Multi-Player</h2>
-        <Link to="/">Home</Link>
+        <Link className="Links" to="/">Home</Link>
         <div className="multi-game_options">
-          <JoinRandomGame />
-          <OwnGameStart />
+          <JoinRandomGame className="Links"/>
+          <OwnGameStart className="Links"/>
+          <EnterCode />
         </div>
-   <div className="Copy_code_from_friend">
-    <EnterCode />
+   
+   
 
-    </div>
+   
 
       </div>
   );

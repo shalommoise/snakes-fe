@@ -5,6 +5,7 @@ const Instructions = () => {
   return (
     <div  className="frame">
       <h2>Instructions</h2>
+      <div className="how_to_play">
       <p>The simple mobile game brought to the big (desktop) screen. <br />
        The rules are simple: </p>
        <ul>
@@ -24,10 +25,11 @@ const Instructions = () => {
         <li>If you bite your friend's snake, it will shrink them without losing points.</li>
         <li>Don't have any friend? No problem? You can pick the random play to play with anyone else if you like.</li>
       </ul>
+      </div>
       <div className="instruction_selection">
-      <Link to="/">Home</Link>
-      <Link to="/single-player">Single-Player</Link>
-      <Link to="/multi-player">Multi-Player</Link>
+      <Link className="Links" to="/">Home</Link>
+      <Link className="Links" to="/single-player">Single-Player</Link>
+      <Link className="Links" to="/multi-player">Multi-Player</Link>
     </div>
     </div>
   );

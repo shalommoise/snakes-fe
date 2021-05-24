@@ -30,7 +30,7 @@ this.setState({gameOn: true});
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/>
      <br/>
      <br />
-     <button onClick={this.start} disabled={!this.state.ready}>Submit</button>
+     <button onClick={this.start} disabled={!this.state.ready}>Play</button>
        
       </div>
      : <SinglePlayerGame movement={this.props.movement} userName={this.state.player1} pixelCount={create()}/>

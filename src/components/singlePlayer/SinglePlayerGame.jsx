@@ -70,7 +70,7 @@ const newSnake = !active ? snake1 : isPixelCoordinate(snake1[0], food) ? moveSna
 
     if(isPixelCoordinate(snake1[0], food)) api.editGame(_id, snake1, food, 1)
     .then(()=> api.getSingleGame(_id).then((game)=>this.setState({food: game.food, points: game.points1})))
-
+if(isSnakeEatingItself(snake1)) this.setState({snake1: [], endGameMsg: "You bit your tail"})
      }
               
   render(){

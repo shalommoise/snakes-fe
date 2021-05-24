@@ -6,6 +6,7 @@ import Home from './components/Home';
 import MultiPlayer from './components/MultiPlayer';
 import Instructions from './components/Instructions';
 import MultiPlayerGame from './components/multiPlayer/MultiPlayerGame';
+import ErrorPage from './components/ErrorPage' 
 import './App.css';
 import {checkKey} from './utils/utils'
 
@@ -29,7 +30,9 @@ state ={
 <MultiPlayer path="/multi-player" />
 <Instructions path="/instructions"/>
 <MultiPlayerGame path="/multi-player/:id/:player" movement={this.state.movement}/>
+  <ErrorPage default />
      </Router>
+
 <br/>
 
     </div>

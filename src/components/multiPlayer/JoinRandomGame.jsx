@@ -40,6 +40,7 @@ this.setState({isName: true})
           <div> <label htmlFor="userName"></label>
           <input type="text" id="userName" name="userName" placeholder="Enter your username here" onChange={this.handleChange}/> <button onClick={this.handleClick} disabled={!userName}>Submit</button></div> : isLoading ? 
           <p>Loading... </p> : 
+          liveGames.length >0 ?
           liveGames.map((game)=>{
           return (<div key={game._id} className="playerList">
             <Link className="Links" to={`/multi-player/${game._id}/2`}>
@@ -50,7 +51,9 @@ this.setState({isName: true})
              </button>
                       </Link> 
           </div>)
-        })}
+        }) :
+        <p>No live games at the moment</p>
+        }
       
       </div>
     );

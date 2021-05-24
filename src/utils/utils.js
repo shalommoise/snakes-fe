@@ -104,3 +104,18 @@ export const  create = ()=>{
     return isOverlap;
 
   }
+
+   export const checkUri =(uri)=>{
+    const address = uri.split("/")[1];
+    return address
+  
+  }
+ export const changeUri = (address)=>{
+    const newAddress = address.split('');
+    const letter = newAddress.shift();
+    newAddress.unshift(letter.toUpperCase());
+    const index = newAddress.indexOf("-");
+    newAddress[index +1] = newAddress[index +1].toUpperCase();
+     return newAddress.join("");
+  }
+  
